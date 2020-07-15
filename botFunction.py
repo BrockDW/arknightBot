@@ -1,9 +1,6 @@
 import cv2
 import pyautogui
-<<<<<<< HEAD
-=======
 import time
->>>>>>> 847a752c20b900af36b21beaa99b42cc74406b82
 
 # baseButtonLocation = pyautogui.locateOnScreen("C:/Users/Brock/OneDrive/Documents/python/arknightBot/venv/Include/botImg/homePage/base.png", confidence = 0.5)
 sleepTime = 6
@@ -13,19 +10,11 @@ def waitForImg(imgUrl, waitTime, curConf):
     while (pyautogui.locateCenterOnScreen(imgUrl, confidence=curConf) != None):
         print(imgUrl + " \t\t\titeration " + str(counter))
         counter+=1
-<<<<<<< HEAD
-        pyautogui.sleep(waitTime)
-=======
         time.sleep(3)
->>>>>>> 847a752c20b900af36b21beaa99b42cc74406b82
     print(imgUrl + " \t\t\thas stopped")
     print()
 
 def clickOnImg(imgUrl, confidenceValue):
-<<<<<<< HEAD
-
-=======
->>>>>>> 847a752c20b900af36b21beaa99b42cc74406b82
     try:
         centerPoint = pyautogui.locateCenterOnScreen(imgUrl, confidence = confidenceValue)
         if(centerPoint):
@@ -34,11 +23,8 @@ def clickOnImg(imgUrl, confidenceValue):
             print(imgUrl + "\t\t\tbutton not found, please adjust your screen")
     except OSError:
         print(imgUrl + "\t\t\tdid not exists")
-<<<<<<< HEAD
-    pyautogui.sleep(2)
-=======
     time.sleep(2)
->>>>>>> 847a752c20b900af36b21beaa99b42cc74406b82
+
     waitForImg("./botImg/waitingIcon.png", 5, 0.7)
     waitForImg("./botImg/battle/endGameCutPic.png", 5, 0.8)
     waitForImg("./botImg/baseIntro.png", 5, 0.8)
@@ -68,40 +54,12 @@ def clickGoBack():
 
 def click(x, y):
     pyautogui.click(x, y)
-<<<<<<< HEAD
-    pyautogui.sleep(1)
-=======
     time.sleep(1)
->>>>>>> 847a752c20b900af36b21beaa99b42cc74406b82
 
 def battleControl(times):
     while (times > 0):
         clickOnImg("./botImg/battle/autoPlay.png", 0.8)
         clickOnImg("./botImg/battle/opStart.png", 0.8)
-<<<<<<< HEAD
-        if (checkExist("./botImg/battle/stoneTrade.png", 0.8)):
-            clickOnImg("./botImg/battle/acceptTrade.png", 0.8)
-            clickOnImg("./botImg/battle/opStart.png", 0.8)
-
-        pyautogui.sleep(5)
-
-        clickOnImg("./botImg/battle/depart.png", 0.8)
-
-        pyautogui.sleep(20)
-
-        waitForImg("./botImg/battle/autoPlayIcon.png", 5, 0.8)
-
-        pyautogui.sleep(5)
-
-        if (checkExist("./botImg/battle/missionFailed.png", 0.7)):
-            clickOnImg("./botImg/battle/giveUpMission.png", 0.8)
-            pyautogui.sleep(5)
-            clickOnImg("./botImg/battle/missionFailedExit.png", 0.8)
-            pyautogui.sleep(5)
-        else:
-            clickOnImg("./botImg/battle/leveledUp.png", 0.8)
-            pyautogui.sleep(5)
-=======
         if (checkExist("./botImg/battle/stoneTrade.png", 0.7)):
             clickOnImg("./botImg/battle/acceptTrade.png", 0.8)
             clickOnImg("./botImg/battle/opStart.png", 0.8)
@@ -127,24 +85,12 @@ def battleControl(times):
         else:
             clickOnImg("./botImg/battle/leveledUp.png", 0.8)
             time.sleep(5)
->>>>>>> 847a752c20b900af36b21beaa99b42cc74406b82
             clickOnImg("./botImg/battle/endOfGame.png", 0.8)
             times -= 1
 
 def resourceFarm(resourceType, times=10):
     if (resourceType == "levelUp"):
         clickOnImg("./botImg/battle/levelUp.png", 0.8)
-<<<<<<< HEAD
-        pyautogui.sleep(5)
-        clickOnImg("./botImg/battle/LS-5.png", 0.8)
-    elif (resourceType == "coin"):
-        clickOnImg("./botImg/battle/coin.png", 0.8)
-        pyautogui.sleep(5)
-        clickOnImg("./botImg/battle/CE-5.png", 0.8)
-    elif (resourceType == "baseBuildRecource"):
-        clickOnImg("./botImg/battle/baseBuildRecource.png", 0.8)
-        pyautogui.sleep(5)
-=======
         time.sleep(5)
         clickOnImg("./botImg/battle/LS-5.png", 0.8)
     elif (resourceType == "coin"):
@@ -154,7 +100,7 @@ def resourceFarm(resourceType, times=10):
     elif (resourceType == "baseBuildRecource"):
         clickOnImg("./botImg/battle/baseBuildRecource.png", 0.8)
         time.sleep(5)
->>>>>>> 847a752c20b900af36b21beaa99b42cc74406b82
+
         clickOnImg("./botImg/battle/SK-5.png", 0.8)
 
     battleControl(times)
@@ -165,11 +111,7 @@ def resourceFarm(resourceType, times=10):
 def chipFarm(chipType, bigChip, times=10):
     if (chipType == "airDmg"):
         clickOnImg("./botImg/battle/chips/airDmg.png", 0.8)
-<<<<<<< HEAD
-        pyautogui.sleep(5)
-=======
         time.sleep(5)
->>>>>>> 847a752c20b900af36b21beaa99b42cc74406b82
         if(bigChip):
             clickOnImg("./botImg/battle/chips/LS-5.png", 0.8)
         else:
@@ -177,11 +119,7 @@ def chipFarm(chipType, bigChip, times=10):
 
     elif (chipType == "costAndSupport"):
         clickOnImg("./botImg/battle/chips/costAndSupport.png", 0.8)
-<<<<<<< HEAD
-        pyautogui.sleep(5)
-=======
         time.sleep(5)
->>>>>>> 847a752c20b900af36b21beaa99b42cc74406b82
         clickOnImg("./botImg/battle/CE-5.png", 0.8)
         if (bigChip):
             clickOnImg("./botImg/battle/chips/LS-5.png", 0.8)
@@ -190,11 +128,7 @@ def chipFarm(chipType, bigChip, times=10):
 
     elif (chipType == "groundDmg"):
         clickOnImg("./botImg/battle/chips/groundDmg.png", 0.8)
-<<<<<<< HEAD
-        pyautogui.sleep(5)
-=======
         time.sleep(5)
->>>>>>> 847a752c20b900af36b21beaa99b42cc74406b82
         if (bigChip):
             clickOnImg("./botImg/battle/chips/PR-D-2.png", 0.8)
         else:
@@ -202,11 +136,7 @@ def chipFarm(chipType, bigChip, times=10):
 
     elif (chipType == "defenceAndHeal"):
         clickOnImg("./botImg/battle/chips/defenceAndHeal.png", 0.8)
-<<<<<<< HEAD
-        pyautogui.sleep(5)
-=======
         time.sleep(5)
->>>>>>> 847a752c20b900af36b21beaa99b42cc74406b82
         clickOnImg("./botImg/battle/SK-5.png", 0.8)
         if (bigChip):
             clickOnImg("./botImg/battle/chips/LS-5.png", 0.8)
@@ -227,11 +157,7 @@ def chipFarm(chipType, bigChip, times=10):
 # pyautogui.mouseUp()
 #
 # pyautogui.sleep(5)
-<<<<<<< HEAD
-battleControl(6)
-=======
-battleControl(4)
->>>>>>> 847a752c20b900af36b21beaa99b42cc74406b82
+battleControl(10)
 
 # pyautogui.sleep(5)
 # clickOnImg("./botImg/goBack.png", 0.8)
