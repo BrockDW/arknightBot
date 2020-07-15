@@ -67,6 +67,9 @@ def battleControl(times):
             clickOnImg("./botImg/battle/acceptTrade.png", 0.8)
             clickOnImg("./botImg/battle/opStart.png", 0.8)
 
+        if (checkExist("./botImg/battle/killMissionEnd.png", 0.7)):
+            click(10, 10)
+
         time.sleep(5)
 
         clickOnImg("./botImg/battle/depart.png", 0.8)
