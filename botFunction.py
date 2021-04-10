@@ -159,8 +159,8 @@ def chipFarm(chipType, bigChip, times=10):
 # pyautogui.moveTo(200, 200, duration=1)
 # pyautogui.mouseUp()
 #
-# pyautogui.sleep(5)
-battleControl(10)
+# pyautogui.sleep(5)6
+battleControl(4)
 
 # pyautogui.sleep(5)
 # clickOnImg("./botImg/goBack.png", 0.8)
