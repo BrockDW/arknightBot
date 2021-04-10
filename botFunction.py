@@ -59,8 +59,13 @@ class Action:
         # print()
 
     def goback(self):
+        # time.sleep(30)
         self.clickOnImg("./botImg/quickJump.png", 0.8)
         self.clickOnImg("./botImg/quickJumpHome.png", 0.8)
+        time.sleep(30)
+        self.clickOnImg("./botImg/closePanel.png", 0.8)
+        self.clickOnImg("./botImg/supplyIcon.png", 0.8)
+        self.clickOnImg("./botImg/closePanelSecond.png", 0.8)
 
 
 
@@ -122,17 +127,17 @@ class Battle(Action):
 
 
 
-class HandleOpen(Action):
-    def __init__(self):
-        pass
-
-    def perform_action(self):
-        # self.goback()
-        # time.sleep(30)
-        self.clickOnImg("./botImg/closePanel.png", 0.8)
-        self.clickOnImg("./botImg/supplyIcon.png", 0.8)
-        self.clickOnImg("./botImg/closePanelSecond.png", 0.8)
-        pass
+# class HandleOpen(Action):
+#     def __init__(self):
+#         pass
+#
+#     def perform_action(self):
+#         # self.goback()
+#         # time.sleep(30)
+#         self.clickOnImg("./botImg/closePanel.png", 0.8)
+#         self.clickOnImg("./botImg/supplyIcon.png", 0.8)
+#         self.clickOnImg("./botImg/closePanelSecond.png", 0.8)
+#         pass
 
 class HandlePublicRecrute(Action):
     def __init__(self):
@@ -308,11 +313,11 @@ if __name__ == '__main__':
             action_queue.append(HandleMission())
             tw_hour_period = now
 
-        if now.time().hour - tf_hour_period.time().hour == 24:
-            Action().goback()
-            HandleOpen().perform_action()
-            HandlePurchase().perform_action()
-            tf_hour_period = now
+        # if now.time().hour - tf_hour_period.time().hour == 24:
+        #     Action().goback()
+        #     HandleOpen().perform_action()
+        #     HandlePurchase().perform_action()
+        #     tf_hour_period = now
 
         # nine_hour_period =
         # tw_hour_period = datetime.now()
