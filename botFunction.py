@@ -186,11 +186,13 @@ class HandlePurchase(Action):
         self.continue_purchase("./botImg/homePage/50_discount.png")
 
     def continue_purchase(self, image_url):
-        while (self.checkExist(image_url, 0.8)):
+        i = 0
+        while (self.checkExist(image_url, 0.8) and i <=5):
             self.clickOnImg(image_url, 0.8)
             self.clickOnImg("./botImg/homePage/confirm_purchase.png", 0.8)
             pyautogui.click(5,5)
             time.sleep(5)
+            i = i + 1
 
 
 class HandleMission(Action):
@@ -257,25 +259,6 @@ class Extermination(Battle):
 
 
 if __name__ == '__main__':
-
-    # handle_open = HandleOpen()
-    # handle_open.perform_action()
-    #
-    # handle_base = HandleBasement()
-    # handle_base.perform_action()
-    #
-    # handle_battle = ResourceFarm("levelUp", 10)
-    # handle_battle.perform_action()
-    #
-    # handle_extermination = Extermination()
-    # handle_extermination.perform_action()
-    # purchase = HandlePurchase()
-    # purchase.perform_action()
-
-    # mission = HandleMission()
-    # mission.perform_action()
-
-    # now =
     nine_hour_period = datetime.now()
     tw_hour_period = datetime.now()
     tf_hour_period = datetime.now()
@@ -300,18 +283,6 @@ if __name__ == '__main__':
             action_queue.append(ResourceFarm("levelUp", 10))
             action_queue.append(HandleMission())
             tw_hour_period = now
-
-        # if now.time().hour - tf_hour_period.time().hour == 24:
-        #     Action().goback()
-        #     HandleOpen().perform_action()
-        #     HandlePurchase().perform_action()
-        #     tf_hour_period = now
-
-        # nine_hour_period =
-        # tw_hour_period = datetime.now()
-
-
-    # print(now.time().hour)
 
 
 
