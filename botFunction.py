@@ -6,6 +6,7 @@ import time
 # logging.basicConfig(format='%(name)s - %(levelname)s - %(message)s')
 log_format = "{:>40} -- {:>10}"
 starCount = 100
+from datetime import datetime
 
 
 
@@ -18,6 +19,9 @@ class Action:
         pass
 
     def clickOnImg(self, imgUrl, confidenceValue):
+        if self.checkExist("./botImg/connection_lost.png", 0.8):
+            self.clickOnImg("./botImg/connection_lost_confirm.png", 0.8)
+            time.sleep(100)
         try:
             centerPoint = pyautogui.locateCenterOnScreen(imgUrl, confidence=confidenceValue)
             if (centerPoint):
@@ -54,32 +58,263 @@ class Action:
         print(log_format.format(imgUrl, "has stopped"))
         # print()
 
+    def goback(self):
+        self.clickOnImg("./botImg/quickJump.png", 0.8)
+        self.clickOnImg("./botImg/quickJumpHome.png", 0.8)
+
+
+
+
+class Battle(Action):
+    def __init__(self):
+        pass
+
+    def battleControl(self, times, enablePotion, enableStone):
+        # logging.info("I am here")
+        while (times > 0):
+            self.clickOnImg("./botImg/battle/autoPlay.png", 0.8)
+            self.clickOnImg("./botImg/battle/opStart.png", 0.8)
+            if (self.checkExist("./botImg/battle/stoneTrade.png", 0.7)):
+                if enableStone:
+                    self.clickOnImg("./botImg/battle/acceptTrade.png", 0.8)
+                    self.clickOnImg("./botImg/battle/opStart.png", 0.8)
+                else:
+                    self.clickOnImg("./botImg/battle/refuse_trade.png", 0.8)
+                    return 0
+            elif (self.checkExist("./botImg/battle/potionTrade.png", 0.7)):
+                if enablePotion:
+                    self.clickOnImg("./botImg/battle/acceptTrade.png", 0.8)
+                    self.clickOnImg("./botImg/battle/opStart.png", 0.8)
+                else:
+                    self.clickOnImg("./botImg/battle/refuse_trade.png", 0.8)
+                    return 0
+            if (self.checkExist("./botImg/battle/killMissionEnd.png", 0.7)):
+                pyautogui.click(10, 10)
+
+            time.sleep(5)
+
+            self.clickOnImg("./botImg/battle/depart.png", 0.8)
+
+            time.sleep(20)
+
+            self.waitForImg("./botImg/battle/autoPlayIcon.png", 5, 0.8)
+
+            time.sleep(5)
+
+            self.clickOnImg("./botImg/battle/extermination_end.png", 0.8)
+
+            time.sleep(5)
+
+            if (self.checkExist("./botImg/battle/missionFailed.png", 0.7)):
+                self.clickOnImg("./botImg/battle/giveUpMission.png", 0.8)
+                time.sleep(5)
+                self.clickOnImg("./botImg/battle/missionFailedExit.png", 0.8)
+                time.sleep(5)
+            else:
+                self.clickOnImg("./botImg/battle/leveledUp.png", 0.8)
+                time.sleep(5)
+                self.clickOnImg("./botImg/battle/endOfGame.png", 0.8)
+                times -= 1
+
+
+
 class HandleOpen(Action):
     def __init__(self):
         pass
 
     def perform_action(self):
+        # self.goback()
+        # time.sleep(30)
         self.clickOnImg("./botImg/closePanel.png", 0.8)
         self.clickOnImg("./botImg/supplyIcon.png", 0.8)
         self.clickOnImg("./botImg/closePanelSecond.png", 0.8)
+        pass
+
+class HandlePublicRecrute(Action):
+    def __init__(self):
+        pass
+
+    def perform_action(self):
+        self.goback()
         self.clickOnImg("./botImg/homePage/publicRecrute.png", 0.8)
         while self.checkExist("./botImg/homePage/recrute_confirm.png", 0.8):
             self.clickOnImg("./botImg/homePage/recrute_confirm.png", 0.8)
-            self.clickOnImg("./botImg/draw_confirm.png",0.8)
-            pyautogui.click(50,50)
+            self.clickOnImg("./botImg/draw_confirm.png", 0.8)
+            pyautogui.click(50, 50)
+            time.sleep(5)
 
         while self.checkExist("./botImg/homePage/begin_new_recrute.png", 0.8):
             self.clickOnImg("./botImg/homePage/begin_new_recrute.png", 0.8)
-            self.clickOnImg("./botImg/draw_confirm.png",0.8)
-            pyautogui.click(50,50)
-        # self.clickOnImg("./botImg/draw_confirm.png", 0.8)
-        # pyautogui.click(50, 50)
+            self.clickOnImg("./botImg/draw_confirm.png", 0.8)
+            pyautogui.click(50, 50)
+
+class HandleBasement(Action):
+    def __init__(self):
         pass
+
+    def perform_action(self):
+        self.goback()
+        self.clickOnImg("./botImg/homePage/base.png", 0.8)
+        self.waitForImg("./botImg/base/baseWaiting.png", 5, 0.8)
+        time.sleep(10)
+
+        if (self.checkExist("./botImg/base/baseNotif.png", 0.8)):
+            self.clickOnImg("./botImg/base/baseNotif.png", 0.8)
+            self.clickOnImg("./botImg/base/collectGroup.png", 0.8)
+            self.clickOnImg("./botImg/base/tradingGroup.png", 0.8)
+            self.clickOnImg("./botImg/base/collect_trust.png", 0.8)
+            time.sleep(10)
+            self.clickOnImg("./botImg/base/baseNotifEnd.png", 0.8)
+
+
+class HandlePurchase(Action):
+    def __init__(self):
+        pass
+
+    def perform_action(self):
+        self.goback()
+        self.clickOnImg("./botImg/homePage/shopping.png", 0.8)
+        self.clickOnImg("./botImg/homePage/credit_purchase.png", 0.8)
+        # self.waitForImg("./botImg/base/baseWaiting.png", 5, 0.8)
+        time.sleep(10)
+
+        self.clickOnImg("./botImg/homePage/get_credit.png", 0.8)
+
+        time.sleep(10)
+
+        pyautogui.click(5,5)
+
+        self.continue_purchase("./botImg/homePage/recrute_pass.png")
+        self.continue_purchase("./botImg/homePage/75_discount.png")
+        self.continue_purchase("./botImg/homePage/50_discount.png")
+
+    def continue_purchase(self, image_url):
+        while (self.checkExist(image_url, 0.8)):
+            self.clickOnImg(image_url, 0.8)
+            self.clickOnImg("./botImg/homePage/confirm_purchase.png", 0.8)
+            pyautogui.click(5,5)
+            time.sleep(5)
+
+
+class HandleMission(Action):
+    def __init__(self):
+        pass
+
+    def perform_action(self):
+        self.goback()
+        self.clickOnImg("./botImg/homePage/mission.png", 0.8)
+        time.sleep(10)
+
+        while (self.checkExist("./botImg/homePage/mission_complete.png", 0.8)):
+            self.clickOnImg("./botImg/homePage/mission_complete.png", 0.8)
+            time.sleep(10)
+            pyautogui.click(5,5)
+            time.sleep(5)
+
+
+
+class ResourceFarm(Battle):
+    def __init__(self, battleType, times):
+        self.battleType = battleType
+        self.times = times
+
+    def perform_action(self):
+        self.goback()
+        self.clickOnImg("./botImg/homePage/battle.png", 0.8)
+        self.clickOnImg("./botImg/battle/resourceGain.png", 0.8)
+        if (self.battleType == "levelUp"):
+            self.clickOnImg("./botImg/battle/levelUp.png", 0.8)
+            time.sleep(5)
+            self.clickOnImg("./botImg/battle/LS-5.png", 0.8)
+        elif (self.battleType == "coin"):
+            self.clickOnImg("./botImg/battle/coin.png", 0.8)
+            time.sleep(5)
+            self.clickOnImg("./botImg/battle/CE-5.png", 0.8)
+        elif (self.battleType == "baseBuildRecource"):
+            self.clickOnImg("./botImg/battle/baseBuildRecource.png", 0.8)
+            time.sleep(5)
+
+            self.clickOnImg("./botImg/battle/SK-5.png", 0.8)
+
+        self.battleControl(self.times, True, False)
+
+
+class Extermination(Battle):
+    def __init__(self):
+        pass
+
+    def perform_action(self):
+        self.goback()
+        self.clickOnImg("./botImg/homePage/battle.png", 0.8)
+        self.clickOnImg("./botImg/battle/extermination.png", 0.8)
+        self.clickOnImg("./botImg/battle/dragon_door.png", 0.8)
+        self.clickOnImg("./botImg/battle/dragon_door_city.png", 0.8)
+        self.clickOnImg("./botImg/battle/extermination_progress.png", 0.8)
+
+        self.battleControl(1, True, False)
+
+
+
+
+
 
 
 if __name__ == '__main__':
-    handle_open = HandleOpen()
-    handle_open.perform_action()
+
+    # handle_open = HandleOpen()
+    # handle_open.perform_action()
+    #
+    # handle_base = HandleBasement()
+    # handle_base.perform_action()
+    #
+    # handle_battle = ResourceFarm("levelUp", 10)
+    # handle_battle.perform_action()
+    #
+    # handle_extermination = Extermination()
+    # handle_extermination.perform_action()
+    # purchase = HandlePurchase()
+    # purchase.perform_action()
+
+    # mission = HandleMission()
+    # mission.perform_action()
+
+    # now =
+    nine_hour_period = datetime.now()
+    tw_hour_period = datetime.now()
+    tf_hour_period = datetime.now()
+    action_queue = [HandleBasement(), ResourceFarm("levelUp", 10)]
+
+    while True:
+        try:
+            current_action = action_queue.pop(0)
+            current_action.perform_action()
+            # print(current_action)
+        except:
+            ## do nothing
+            time.sleep(60 * 60)
+
+        now = datetime.now()
+        print(log_format.format(str(now.time()), "working"))
+        if now.time().hour - nine_hour_period.time().hour == 9:
+            action_queue.append(HandleBasement())
+            nine_hour_period = now
+
+        if now.time().hour - tw_hour_period.time().hour == 12:
+            action_queue.append(ResourceFarm("levelUp", 10))
+            tw_hour_period = now
+
+        if now.time().hour - tf_hour_period.time().hour == 24:
+            Action().goback()
+            HandleOpen().perform_action()
+            HandlePurchase().perform_action()
+            tf_hour_period = now
+
+        # nine_hour_period =
+        # tw_hour_period = datetime.now()
+
+
+    # print(now.time().hour)
+
 
 
 
@@ -150,7 +385,6 @@ def battleControl(times):
         elif (checkExist("./botImg/battle/potionTrade.png", 0.7)):
             clickOnImg("./botImg/battle/acceptTrade.png", 0.8)
             clickOnImg("./botImg/battle/opStart.png", 0.8)
-
         if (checkExist("./botImg/battle/killMissionEnd.png", 0.7)):
             click(10, 10)
 
