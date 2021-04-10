@@ -63,9 +63,11 @@ class Action:
         self.clickOnImg("./botImg/quickJump.png", 0.8)
         self.clickOnImg("./botImg/quickJumpHome.png", 0.8)
         time.sleep(30)
-        self.clickOnImg("./botImg/closePanel.png", 0.8)
-        self.clickOnImg("./botImg/supplyIcon.png", 0.8)
-        self.clickOnImg("./botImg/closePanelSecond.png", 0.8)
+        if self.checkExist("./botImg/closePanel.png", 0.8):
+            self.clickOnImg("./botImg/closePanel.png", 0.8)
+            self.clickOnImg("./botImg/supplyIcon.png", 0.8)
+            self.clickOnImg("./botImg/closePanelSecond.png", 0.8)
+            HandlePurchase().perform_action()
 
 
 
@@ -124,20 +126,6 @@ class Battle(Action):
                 self.clickOnImg("./botImg/battle/endOfGame.png", 0.8)
                 time.sleep(20)
                 times -= 1
-
-
-
-# class HandleOpen(Action):
-#     def __init__(self):
-#         pass
-#
-#     def perform_action(self):
-#         # self.goback()
-#         # time.sleep(30)
-#         self.clickOnImg("./botImg/closePanel.png", 0.8)
-#         self.clickOnImg("./botImg/supplyIcon.png", 0.8)
-#         self.clickOnImg("./botImg/closePanelSecond.png", 0.8)
-#         pass
 
 class HandlePublicRecrute(Action):
     def __init__(self):
