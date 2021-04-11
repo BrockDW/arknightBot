@@ -275,11 +275,27 @@ if __name__ == '__main__':
 
         now = datetime.now()
         print(log_format.format(str(now.time()), "working"))
-        if now.time().hour - nine_hour_period.time().hour == 9:
+
+        nine_hour_diff = 0
+        hour = now.time().hour
+        nine_hour = nine_hour_period.time().hour
+        if hour < nine_hour:
+            nine_hour_diff = (24 - nine_hour) + hour
+        else:
+            nine_hour_diff = hour - nine_hour
+
+        if nine_hour_diff >= 9:
             action_queue.append(HandleBasement())
             nine_hour_period = now
 
-        if now.time().hour - tw_hour_period.time().hour == 12:
+        tw_hour_diff = 0
+        tw_hour = tw_hour_period.time().hour
+        if hour < tw_hour:
+            tw_hour_diff = (24 - tw_hour) + hour
+        else:
+            tw_hour_diff = hour - tw_hour
+
+        if tw_hour_diff >= 12:
             action_queue.append(ResourceFarm("levelUp", 10))
             action_queue.append(HandleMission())
             tw_hour_period = now
