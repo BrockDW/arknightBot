@@ -82,6 +82,9 @@ class Action:
 
             if self.checkExist("./botImg/update_failed.png", 0.8):
                 self.clickOnImg("./botImg/confirm.png", 0.8)
+                time.sleep(360)
+                HandleBasement().perform_action()
+                HandlePurchase().perform_action()
 
 
 
@@ -322,7 +325,7 @@ if __name__ == '__main__':
     tf_hour_period = datetime.now()
     primaryFarm = ChipFarm("mage_sniper", 10)
     # print("I am working here")
-    action_queue = [primaryFarm, Extermination(), HandlePurchase(), HandleMission()]
+    action_queue = [primaryFarm, Extermination(), HandlePurchase(), HandleBasement, HandleMission()]
 
     while True:
         try:
