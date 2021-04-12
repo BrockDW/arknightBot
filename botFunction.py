@@ -262,7 +262,7 @@ if __name__ == '__main__':
     nine_hour_period = datetime.now()
     tw_hour_period = datetime.now()
     tf_hour_period = datetime.now()
-    action_queue = [ResourceFarm("levelUp", 10), HandleMission()]
+    action_queue = [HandleBasement(), ResourceFarm("levelUp", 10), HandleMission()]
 
     while True:
         try:
