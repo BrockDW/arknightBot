@@ -26,6 +26,7 @@ class Action:
             centerPoint = pyautogui.locateCenterOnScreen(imgUrl, confidence=confidenceValue)
             if (centerPoint):
                 pyautogui.click(centerPoint[0], centerPoint[1])
+                print(log_format.format(imgUrl, "image clicked"))
             else:
                 print(log_format.format(imgUrl, "button not found, please adjust your screen"))
         except OSError:
@@ -41,6 +42,7 @@ class Action:
         try:
             centerPoint = pyautogui.locateCenterOnScreen(imgUrl, confidence=confidenceValue)
             if (centerPoint):
+                print(log_format.format(imgUrl, "exist on screen"))
                 return True
             else:
                 print(log_format.format(imgUrl, "did not exist on screen"))
@@ -60,13 +62,16 @@ class Action:
 
     def goback(self):
         # time.sleep(30)
+        print(log_format.format("going back", "to the main screen"))
         self.clickOnImg("./botImg/quickJump.png", 0.8)
         self.clickOnImg("./botImg/quickJumpHome.png", 0.8)
         time.sleep(30)
         if self.checkExist("./botImg/closePanel.png", 0.8):
+            print(log_format.format("a new day has started", "performing basic operation"))
             self.clickOnImg("./botImg/closePanel.png", 0.8)
             self.clickOnImg("./botImg/supplyIcon.png", 0.8)
             self.clickOnImg("./botImg/closePanelSecond.png", 0.8)
+            HandleBasement().perform_action()
             HandlePurchase().perform_action()
 
 
@@ -80,7 +85,6 @@ class Battle(Action):
         # logging.info("I am here")
         while (times > 0):
             self.clickOnImg("./botImg/battle/autoPlay.png", 0.8)
-            
             self.clickOnImg("./botImg/battle/opStart.png", 0.8)
             if (self.checkExist("./botImg/battle/stoneTrade.png", 0.7)):
                 if enableStone:
@@ -184,12 +188,17 @@ class HandlePurchase(Action):
         self.continue_purchase("./botImg/homePage/recrute_pass.png")
         self.continue_purchase("./botImg/homePage/75_discount.png")
         self.continue_purchase("./botImg/homePage/50_discount.png")
+        self.continue_purchase("./botImg/homePage/99_discount.png")
 
     def continue_purchase(self, image_url):
         i = 0
         while (self.checkExist(image_url, 0.8) and i <=5):
             self.clickOnImg(image_url, 0.8)
             self.clickOnImg("./botImg/homePage/confirm_purchase.png", 0.8)
+
+            if self.checkExist("./botImage/homePage/not_enough_credit.png", 0.8):
+                print(log_format.format("not enough credit", "the purchase will stop"))
+                break
             pyautogui.click(5,5)
             time.sleep(5)
             i = i + 1
@@ -203,7 +212,13 @@ class HandleMission(Action):
         self.goback()
         self.clickOnImg("./botImg/homePage/mission.png", 0.8)
         time.sleep(10)
+        while (self.checkExist("./botImg/homePage/mission_complete.png", 0.8)):
+            self.clickOnImg("./botImg/homePage/mission_complete.png", 0.8)
+            time.sleep(10)
+            pyautogui.click(5,5)
+            time.sleep(5)
 
+        self.clickOnImg("./botImg/homePage/weekly_mission.png", 0.8)
         while (self.checkExist("./botImg/homePage/mission_complete.png", 0.8)):
             self.clickOnImg("./botImg/homePage/mission_complete.png", 0.8)
             time.sleep(10)
@@ -237,6 +252,31 @@ class ResourceFarm(Battle):
 
         self.battleControl(self.times, True, False)
 
+class ChipFarm(Battle):
+    def __init__(self, chip_type, times):
+        self.chip_type = chip_type
+        self.times = times
+
+    def perform_action(self):
+        self.goback()
+        self.clickOnImg("./botImg/homePage/battle.png", 0.8)
+        self.clickOnImg("./botImg/battle/chips.png", 0.8)
+        if (self.chip_type == "mage_sniper"):
+            self.clickOnImg("./botImg/battle/chips/airDmg.png", 0.8)
+            time.sleep(5)
+            self.clickOnImg("./botImg/battle/chips/PR-B-2.png", 0.8)
+        elif (self.chip_type == "healer_defender"):
+            self.clickOnImg("./botImg/battle/chips/defenceAndHeal.png", 0.8)
+            time.sleep(5)
+            self.clickOnImg("./botImg/battle/chips/PR-A-2.png", 0.8)
+        elif (self.chip_type == "baseBuildRecource"):
+            self.clickOnImg("./botImg/battle/baseBuildRecource.png", 0.8)
+            time.sleep(5)
+
+            self.clickOnImg("./botImg/battle/SK-5.png", 0.8)
+
+        self.battleControl(self.times, True, False)
+
 
 class Extermination(Battle):
     def __init__(self):
@@ -252,25 +292,24 @@ class Extermination(Battle):
 
         self.battleControl(1, True, False)
 
-
-
-
-
-
-
 if __name__ == '__main__':
+    print("I am working here")
     nine_hour_period = datetime.now()
     tw_hour_period = datetime.now()
     tf_hour_period = datetime.now()
-    action_queue = [ResourceFarm("levelUp", 10), HandleMission()]
+    primaryFarm = ChipFarm("mage_sniper", 10)
+    print("I am working here")
+    action_queue = [HandlePurchase(), primaryFarm, HandleMission(), Extermination()]
 
     while True:
         try:
+            print("I am working here")
             current_action = action_queue.pop(0)
             current_action.perform_action()
             # print(current_action)
-        except:
+        except Exception:
             ## do nothing
+            print(log_format.format("error happened", "not working"))
             time.sleep(60 * 60)
 
         now = datetime.now()
@@ -296,7 +335,8 @@ if __name__ == '__main__':
             tw_hour_diff = hour - tw_hour
 
         if tw_hour_diff >= 12:
-            action_queue.append(ResourceFarm("levelUp", 10))
+            action_queue.append(Extermination())
+            action_queue.append(primaryFarm)
             action_queue.append(HandleMission())
             tw_hour_period = now
 
