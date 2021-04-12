@@ -75,6 +75,13 @@ class Action:
             HandlePurchase().perform_action()
 
 
+    def check_new_day_update(self):
+        time.sleep(10)
+        if self.checkExist("./botImg/updated.png", 0.8):
+            self.clickOnImg("./botImg/update_confirm.png", 0.8)
+
+
+
 
 
 class Battle(Action):
@@ -153,6 +160,8 @@ class HandlePublicRecrute(Action):
             self.clickOnImg("./botImg/draw_confirm.png", 0.8)
             pyautogui.click(50, 50)
 
+        self.check_new_day_update()
+
 class HandleBasement(Action):
     def __init__(self):
         pass
@@ -170,6 +179,8 @@ class HandleBasement(Action):
             self.clickOnImg("./botImg/base/collect_trust.png", 0.8)
             time.sleep(10)
             self.clickOnImg("./botImg/base/baseNotifEnd.png", 0.8)
+
+        self.check_new_day_update()
 
 
 class HandlePurchase(Action):
@@ -193,6 +204,7 @@ class HandlePurchase(Action):
         self.continue_purchase("./botImg/homePage/75_discount.png")
         self.continue_purchase("./botImg/homePage/50_discount.png")
         self.continue_purchase("./botImg/homePage/99_discount.png")
+        self.check_new_day_update()
 
     def continue_purchase(self, image_url):
         i = 0
@@ -228,6 +240,7 @@ class HandleMission(Action):
             time.sleep(10)
             pyautogui.click(5,5)
             time.sleep(5)
+        self.check_new_day_update()
 
 
 
@@ -255,6 +268,7 @@ class ResourceFarm(Battle):
             self.clickOnImg("./botImg/battle/SK-5.png", 0.8)
 
         self.battleControl(self.times, True, False)
+        self.check_new_day_update()
 
 class ChipFarm(Battle):
     def __init__(self, chip_type, times):
@@ -280,6 +294,7 @@ class ChipFarm(Battle):
             self.clickOnImg("./botImg/battle/SK-5.png", 0.8)
 
         self.battleControl(self.times, True, False)
+        self.check_new_day_update()
 
 
 class Extermination(Battle):
@@ -295,6 +310,7 @@ class Extermination(Battle):
         self.clickOnImg("./botImg/battle/extermination_progress.png", 0.8)
 
         self.battleControl(1, True, False)
+        self.check_new_day_update()
 
 if __name__ == '__main__':
     print("I am working here")
