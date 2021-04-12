@@ -78,7 +78,10 @@ class Action:
     def check_new_day_update(self):
         time.sleep(10)
         if self.checkExist("./botImg/updated.png", 0.8):
-            self.clickOnImg("./botImg/update_confirm.png", 0.8)
+            self.clickOnImg("./botImg/confirm.png", 0.8)
+
+            if self.checkExist("./botImg/update_failed.png", 0.8):
+                self.clickOnImg("./botImg/confirm.png", 0.8)
 
 
 
