@@ -119,6 +119,10 @@ class Battle(Action):
 
             time.sleep(10)
 
+            self.clickOnImg("./botImg/battle/extermination_progress.png", 0.8)
+
+            time.sleep(10)
+
             if (self.checkExist("./botImg/battle/missionFailed.png", 0.7)):
                 self.clickOnImg("./botImg/battle/giveUpMission.png", 0.8)
                 time.sleep(20)
@@ -298,12 +302,12 @@ if __name__ == '__main__':
     tw_hour_period = datetime.now()
     tf_hour_period = datetime.now()
     primaryFarm = ChipFarm("mage_sniper", 10)
-    print("I am working here")
-    action_queue = [HandlePurchase(), primaryFarm, HandleMission(), Extermination()]
+    # print("I am working here")
+    action_queue = [primaryFarm, Extermination(), HandlePurchase(), HandleMission()]
 
     while True:
         try:
-            print("I am working here")
+            # print("I am working here")
             current_action = action_queue.pop(0)
             current_action.perform_action()
             # print(current_action)
@@ -335,7 +339,7 @@ if __name__ == '__main__':
             tw_hour_diff = hour - tw_hour
 
         if tw_hour_diff >= 12:
-            action_queue.append(Extermination())
+            # action_queue.append(Extermination())
             action_queue.append(primaryFarm)
             action_queue.append(HandleMission())
             tw_hour_period = now
