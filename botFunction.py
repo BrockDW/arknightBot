@@ -198,11 +198,11 @@ class HandlePurchase(Action):
         self.clickOnImg("./botImg/homePage/shopping.png", 0.8)
         self.clickOnImg("./botImg/homePage/credit_purchase.png", 0.8)
         # self.waitForImg("./botImg/base/baseWaiting.png", 5, 0.8)
-        time.sleep(10)
+        time.sleep(20)
 
         self.clickOnImg("./botImg/homePage/get_credit.png", 0.8)
 
-        time.sleep(10)
+        time.sleep(20)
 
         pyautogui.click(5,5)
 
@@ -236,16 +236,16 @@ class HandleMission(Action):
         time.sleep(10)
         while (self.checkExist("./botImg/homePage/mission_complete.png", 0.8)):
             self.clickOnImg("./botImg/homePage/mission_complete.png", 0.8)
-            time.sleep(10)
+            time.sleep(20)
             pyautogui.click(5,5)
-            time.sleep(5)
+            time.sleep(10)
 
         self.clickOnImg("./botImg/homePage/weekly_mission.png", 0.8)
         while (self.checkExist("./botImg/homePage/mission_complete.png", 0.8)):
             self.clickOnImg("./botImg/homePage/mission_complete.png", 0.8)
-            time.sleep(10)
+            time.sleep(20)
             pyautogui.click(5,5)
-            time.sleep(5)
+            time.sleep(10)
         self.check_new_day_update()
 
 
@@ -323,9 +323,9 @@ if __name__ == '__main__':
     nine_hour_period = datetime.now()
     tw_hour_period = datetime.now()
     tf_hour_period = datetime.now()
-    primaryFarm = ChipFarm("mage_sniper", 10)
+    primaryFarm = ResourceFarm("levelUp", 10)
     # print("I am working here")
-    action_queue = [primaryFarm, Extermination(), HandlePurchase(), HandleBasement, HandleMission()]
+    action_queue = [primaryFarm, HandlePurchase(), HandleBasement(), HandleMission()]
 
     while True:
         try:
@@ -339,7 +339,7 @@ if __name__ == '__main__':
             time.sleep(60 * 60)
 
         now = datetime.now()
-        print(log_format.format(str(now.time()), "working"))
+        print(log_format.format(str(now.time()), str(nine_hour_period.time()) + ":::"+str(tf_hour_period.time())))
 
         nine_hour_diff = 0
         hour = now.time().hour
@@ -360,7 +360,7 @@ if __name__ == '__main__':
         else:
             tw_hour_diff = hour - tw_hour
 
-        if tw_hour_diff >= 12:
+        if tw_hour_diff >= 10:
             # action_queue.append(Extermination())
             action_queue.append(primaryFarm)
             action_queue.append(HandleMission())
