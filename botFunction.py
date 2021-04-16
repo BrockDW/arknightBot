@@ -83,7 +83,7 @@ class Action:
         # print()
 
     def click_screen(self):
-        pyautogui.click(1, 1)
+        pyautogui.click(1900, 0)
 
     def goback(self):
         # time.sleep(30)
@@ -415,9 +415,10 @@ class HandleMission(Action):
 
 if __name__ == '__main__':
     # Action().click_screen()
-    Battle().battleControl(10, True, False)
+    #Battle().battleControl(10, True, False)
     # HandlePublicRecrute().perform_action()
     # pass
+    ##Action().goback()
 
     nine_hour_period = datetime.now()
     tw_hour_period = datetime.now()
