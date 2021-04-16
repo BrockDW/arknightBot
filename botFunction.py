@@ -2,33 +2,48 @@ import cv2
 import pyautogui
 import time
 # import logging
+from os import listdir
+from os.path import isfile, join
+
 
 # logging.basicConfig(format='%(name)s - %(levelname)s - %(message)s')
 log_format = "{:>40} -- {:>10}"
 starCount = 100
+sleep_radio = 5
+single_four_star = ["zy", "xr", "wy", "ksfh", "tzgy"]
+double_four_star = {
+    "js": ["qg", "jwgy", "jjgy", "ssgy", "shuchu","jzw"],
+    "sc": ["jjgy", "ycw"],
+    "zl": ["xfgy", "fyhf"]
+}
+single_five_star = ["zh", "bf", "kc"]
+double_five_star = {
+    "qg": ["xr"],
+    "wy": ["shuchu", "zzgy", "fh"],
+    "sc": ["zzgy", "fh", "tzgy"],
+    "xr": ["fzgy"],
+    "zy": ["xfgy", "fyhf", "ycw", "ylgy", "zl"],
+    "shuchu": ["zl", "fzgy", "tzgy", "zzgy"],
+    "kc": ["xfgy", "fyhf", "tzgy", "ksfh", "fzgy", "js"],
+    "fh": ["shuchu", "jwgy"]
+}
+
+trible_five_star = ["shuchu", "ycw", "js"]
 from datetime import datetime
 
 
 
 class Action:
     def __init__(self):
-        self.sleepTime = 6
+        sleep_radio = 5
         pass
 
     def perform_action(self):
         pass
 
     def clickOnImg(self, imgUrl, confidenceValue):
-        if self.checkExist("./botImg/connection_lost.png", 0.8):
-            # self.clickOnImg("./botImg/connection_lost_confirm.png", 0.8)
-            centerPoint = pyautogui.locateCenterOnScreen("./botImg/connection_lost_confirm.png", confidence=confidenceValue)
-            if (centerPoint):
-                pyautogui.click(centerPoint[0], centerPoint[1])
-                print(log_format.format(imgUrl, "image clicked"))
-                time.sleep(100)
-            else:
-                print(log_format.format(imgUrl, "button not found, please adjust your screen"))
-
+        self.check_new_day_update()
+        self.check_connection_lost()
         try:
             centerPoint = pyautogui.locateCenterOnScreen(imgUrl, confidence=confidenceValue)
             if (centerPoint):
@@ -38,7 +53,7 @@ class Action:
                 print(log_format.format(imgUrl, "button not found, please adjust your screen"))
         except OSError:
             print(log_format.format(imgUrl, "image file did not exists"))
-        time.sleep(2)
+        time.sleep(sleep_radio)
 
         self.waitForImg("./botImg/waitingIcon.png", 5, 0.7)
         self.waitForImg("./botImg/battle/endGameCutPic.png", 5, 0.8)
@@ -67,12 +82,15 @@ class Action:
         print(log_format.format(imgUrl, "has stopped"))
         # print()
 
+    def click_screen(self):
+        pyautogui.click(1, 1)
+
     def goback(self):
         # time.sleep(30)
         print(log_format.format("going back", "to the main screen"))
         self.clickOnImg("./botImg/quickJump.png", 0.8)
         self.clickOnImg("./botImg/quickJumpHome.png", 0.8)
-        time.sleep(30)
+        time.sleep(sleep_radio*6)
         if self.checkExist("./botImg/closePanel.png", 0.8):
             print(log_format.format("a new day has started", "performing basic operation"))
             self.clickOnImg("./botImg/closePanel.png", 0.8)
@@ -83,7 +101,7 @@ class Action:
 
 
     def check_new_day_update(self):
-        time.sleep(10)
+        time.sleep(sleep_radio*2)
         if self.checkExist("./botImg/updated.png", 0.8):
             self.clickOnImg("./botImg/confirm.png", 0.8)
 
@@ -93,7 +111,18 @@ class Action:
                 HandleBasement().perform_action()
                 HandlePurchase().perform_action()
 
+    def check_connection_lost(self):
+        if self.checkExist("./botImg/connection_lost.png", 0.8):
+            # self.clickOnImg("./botImg/connection_lost_confirm.png", 0.8)
+            centerPoint = pyautogui.locateCenterOnScreen("./botImg/connection_lost_confirm.png", confidence=0.8)
+            if (centerPoint):
+                pyautogui.click(centerPoint[0], centerPoint[1])
+                print(log_format.format("./botImg/connection_lost_confirm.png", "image clicked"))
+                time.sleep(sleep_radio*20)
+            else:
+                print(log_format.format("./botImg/connection_lost_confirm.png", "button not found, please adjust your screen"))
 
+    # def format_print(self, string1,string2):
 
 
 
@@ -123,137 +152,37 @@ class Battle(Action):
                     return 0
             
             if (self.checkExist("./botImg/battle/killMissionEnd.png", 0.7)):
-                pyautogui.click(10, 10)
+                self.click_screen()
 
-            time.sleep(10)
+            time.sleep(sleep_radio*2)
 
             self.clickOnImg("./botImg/battle/depart.png", 0.8)
 
-            time.sleep(10)
+            time.sleep(sleep_radio*2)
 
             self.waitForImg("./botImg/battle/autoPlayIcon.png", 5, 0.8)
 
-            time.sleep(10)
+            time.sleep(sleep_radio*2)
 
             self.clickOnImg("./botImg/battle/extermination_end.png", 0.8)
 
-            time.sleep(10)
+            time.sleep(sleep_radio*2)
 
             self.clickOnImg("./botImg/battle/extermination_progress.png", 0.8)
 
-            time.sleep(10)
+            time.sleep(sleep_radio*2)
 
             if (self.checkExist("./botImg/battle/missionFailed.png", 0.7)):
                 self.clickOnImg("./botImg/battle/giveUpMission.png", 0.8)
-                time.sleep(20)
+                time.sleep(sleep_radio*4)
                 self.clickOnImg("./botImg/battle/missionFailedExit.png", 0.8)
-                time.sleep(20)
+                time.sleep(sleep_radio*4)
             else:
                 self.clickOnImg("./botImg/battle/leveledUp.png", 0.8)
-                time.sleep(20)
+                time.sleep(sleep_radio*4)
                 self.clickOnImg("./botImg/battle/endOfGame.png", 0.8)
-                time.sleep(20)
+                time.sleep(sleep_radio*4)
                 times -= 1
-
-class HandlePublicRecrute(Action):
-    def __init__(self):
-        pass
-
-    def perform_action(self):
-        self.goback()
-        self.clickOnImg("./botImg/homePage/publicRecrute.png", 0.8)
-        while self.checkExist("./botImg/homePage/recrute_confirm.png", 0.8):
-            self.clickOnImg("./botImg/homePage/recrute_confirm.png", 0.8)
-            self.clickOnImg("./botImg/draw_confirm.png", 0.8)
-            pyautogui.click(50, 50)
-            time.sleep(5)
-
-        while self.checkExist("./botImg/homePage/begin_new_recrute.png", 0.8):
-            self.clickOnImg("./botImg/homePage/begin_new_recrute.png", 0.8)
-            self.clickOnImg("./botImg/draw_confirm.png", 0.8)
-            pyautogui.click(50, 50)
-
-        self.check_new_day_update()
-
-class HandleBasement(Action):
-    def __init__(self):
-        pass
-
-    def perform_action(self):
-        self.goback()
-        self.clickOnImg("./botImg/homePage/base.png", 0.8)
-        self.waitForImg("./botImg/base/baseWaiting.png", 5, 0.8)
-        time.sleep(10)
-
-        if (self.checkExist("./botImg/base/baseNotif.png", 0.8)):
-            self.clickOnImg("./botImg/base/baseNotif.png", 0.8)
-            self.clickOnImg("./botImg/base/collectGroup.png", 0.8)
-            self.clickOnImg("./botImg/base/tradingGroup.png", 0.8)
-            self.clickOnImg("./botImg/base/collect_trust.png", 0.8)
-            time.sleep(10)
-            self.clickOnImg("./botImg/base/baseNotifEnd.png", 0.8)
-
-        self.check_new_day_update()
-
-
-class HandlePurchase(Action):
-    def __init__(self):
-        pass
-
-    def perform_action(self):
-        self.goback()
-        self.clickOnImg("./botImg/homePage/shopping.png", 0.8)
-        self.clickOnImg("./botImg/homePage/credit_purchase.png", 0.8)
-        # self.waitForImg("./botImg/base/baseWaiting.png", 5, 0.8)
-        time.sleep(20)
-
-        self.clickOnImg("./botImg/homePage/get_credit.png", 0.8)
-
-        time.sleep(20)
-
-        pyautogui.click(5,5)
-
-        self.continue_purchase("./botImg/homePage/recrute_pass.png")
-        self.continue_purchase("./botImg/homePage/75_discount.png")
-        self.continue_purchase("./botImg/homePage/50_discount.png")
-        self.continue_purchase("./botImg/homePage/99_discount.png")
-        self.check_new_day_update()
-
-    def continue_purchase(self, image_url):
-        i = 0
-        while (self.checkExist(image_url, 0.8) and i <=5):
-            self.clickOnImg(image_url, 0.8)
-            self.clickOnImg("./botImg/homePage/confirm_purchase.png", 0.8)
-
-            if self.checkExist("./botImage/homePage/not_enough_credit.png", 0.8):
-                print(log_format.format("not enough credit", "the purchase will stop"))
-                break
-            pyautogui.click(5,5)
-            time.sleep(5)
-            i = i + 1
-
-
-class HandleMission(Action):
-    def __init__(self):
-        pass
-
-    def perform_action(self):
-        self.goback()
-        self.clickOnImg("./botImg/homePage/mission.png", 0.8)
-        time.sleep(10)
-        while (self.checkExist("./botImg/homePage/mission_complete.png", 0.8)):
-            self.clickOnImg("./botImg/homePage/mission_complete.png", 0.8)
-            time.sleep(20)
-            pyautogui.click(5,5)
-            time.sleep(10)
-
-        self.clickOnImg("./botImg/homePage/weekly_mission.png", 0.8)
-        while (self.checkExist("./botImg/homePage/mission_complete.png", 0.8)):
-            self.clickOnImg("./botImg/homePage/mission_complete.png", 0.8)
-            time.sleep(20)
-            pyautogui.click(5,5)
-            time.sleep(10)
-        self.check_new_day_update()
 
 
 
@@ -268,15 +197,15 @@ class ResourceFarm(Battle):
         self.clickOnImg("./botImg/battle/resourceGain.png", 0.8)
         if (self.battleType == "levelUp"):
             self.clickOnImg("./botImg/battle/levelUp.png", 0.8)
-            time.sleep(5)
+            time.sleep(sleep_radio*2)
             self.clickOnImg("./botImg/battle/LS-5.png", 0.8)
         elif (self.battleType == "coin"):
             self.clickOnImg("./botImg/battle/coin.png", 0.8)
-            time.sleep(5)
+            time.sleep(sleep_radio*2)
             self.clickOnImg("./botImg/battle/CE-5.png", 0.8)
         elif (self.battleType == "baseBuildRecource"):
             self.clickOnImg("./botImg/battle/baseBuildRecource.png", 0.8)
-            time.sleep(5)
+            time.sleep(sleep_radio*2)
 
             self.clickOnImg("./botImg/battle/SK-5.png", 0.8)
 
@@ -294,15 +223,15 @@ class ChipFarm(Battle):
         self.clickOnImg("./botImg/battle/chips.png", 0.8)
         if (self.chip_type == "mage_sniper"):
             self.clickOnImg("./botImg/battle/chips/airDmg.png", 0.8)
-            time.sleep(5)
+            time.sleep(sleep_radio*2)
             self.clickOnImg("./botImg/battle/chips/PR-B-2.png", 0.8)
         elif (self.chip_type == "healer_defender"):
             self.clickOnImg("./botImg/battle/chips/defenceAndHeal.png", 0.8)
-            time.sleep(5)
+            time.sleep(sleep_radio*2)
             self.clickOnImg("./botImg/battle/chips/PR-A-2.png", 0.8)
         elif (self.chip_type == "baseBuildRecource"):
             self.clickOnImg("./botImg/battle/baseBuildRecource.png", 0.8)
-            time.sleep(5)
+            time.sleep(sleep_radio*2)
 
             self.clickOnImg("./botImg/battle/SK-5.png", 0.8)
 
@@ -325,14 +254,177 @@ class Extermination(Battle):
         self.battleControl(1, True, False)
         self.check_new_day_update()
 
+
+
+class HandlePublicRecrute(Action):
+    def __init__(self):
+        pass
+
+    def perform_action(self):
+        self.goback()
+        self.clickOnImg("./botImg/homePage/publicRecrute.png", 0.8)
+        while self.checkExist("./botImg/homePage/recrute_confirm.png", 0.8):
+            self.clickOnImg("./botImg/homePage/recrute_confirm.png", 0.8)
+            self.clickOnImg("./botImg/draw_confirm.png", 0.8)
+            pyautogui.click(50, 50)
+            time.sleep(sleep_radio*2)
+
+        tag_path = "./botImg/recrute_tag"
+        onlyfiles = [f for f in listdir(tag_path) if isfile(join(tag_path, f))]
+        print(onlyfiles)
+
+        while self.checkExist("./botImg/homePage/begin_new_recrute.png", 0.8):
+            cur_tag_list = []
+            self.clickOnImg("./botImg/homePage/begin_new_recrute.png", 0.8)
+            for file in onlyfiles:
+                if self.checkExist(tag_path + "/"+file, 0.9):
+                    cur_tag_list.append(file.split(".")[0])
+
+            print(log_format.format("available tags", str(cur_tag_list)))
+
+            selected = False
+
+            if len(cur_tag_list) == 5:
+                for five_single in single_five_star:
+                    if five_single in cur_tag_list:
+                        self.trigger_recruite([five_single])
+                        selected = True
+                        break
+
+                for five_double in double_five_star.keys():
+                    if five_double in cur_tag_list:
+                        for five_double_second in double_five_star[five_double]:
+                            if five_double_second in cur_tag_list:
+                                self.trigger_recruite([five_double, five_double_second])
+                                selected = True
+                                break
+
+                for four_single in single_four_star:
+                    if four_single in cur_tag_list:
+                        self.trigger_recruite([four_single])
+                        selected = True
+                        break
+
+                for four_double in double_four_star.keys():
+                    if four_double in cur_tag_list:
+                        for four_double_second in double_four_star[four_double]:
+                            if four_double_second in cur_tag_list:
+                                self.trigger_recruite([four_double, four_double_second])
+                                selected = True
+                                break
+
+                if not selected:
+                    if "fzgy" in cur_tag_list:
+                        self.trigger_recruite(["fzgy"])
+                    else:
+                        self.trigger_recruite([cur_tag_list[0]])
+            else:
+                print(log_format.format("unknown tag found", "please screen shot it"))
+
+
+        self.check_new_day_update()
+
+    def trigger_recruite(self, tags):
+        print(log_format.format("selecting tag", str(tags)))
+        for tag in tags:
+            self.clickOnImg("./botImg/recrute_tag/"+tag+".png", 0.8)
+        self.clickOnImg("./botImg/maximum_recrute.png", 0.8)
+        self.clickOnImg("./botImg/recrute_confirm.png", 0.8)
+        time.sleep(sleep_radio)
+
+class HandleBasement(Action):
+    def __init__(self):
+        pass
+
+    def perform_action(self):
+        self.goback()
+        self.clickOnImg("./botImg/homePage/base.png", 0.8)
+        self.waitForImg("./botImg/base/baseWaiting.png", 5, 0.8)
+        time.sleep(sleep_radio*2)
+
+        if (self.checkExist("./botImg/base/baseNotif.png", 0.8)):
+            self.clickOnImg("./botImg/base/baseNotif.png", 0.8)
+            self.clickOnImg("./botImg/base/collectGroup.png", 0.8)
+            self.clickOnImg("./botImg/base/tradingGroup.png", 0.8)
+            self.clickOnImg("./botImg/base/collect_trust.png", 0.8)
+            time.sleep(sleep_radio*2)
+            self.clickOnImg("./botImg/base/baseNotifEnd.png", 0.8)
+
+        self.check_new_day_update()
+
+
+class HandlePurchase(Action):
+    def __init__(self):
+        pass
+
+    def perform_action(self):
+        self.goback()
+        self.clickOnImg("./botImg/homePage/shopping.png", 0.8)
+        self.clickOnImg("./botImg/homePage/credit_purchase.png", 0.8)
+        # self.waitForImg("./botImg/base/baseWaiting.png", 5, 0.8)
+        time.sleep(sleep_radio*4)
+
+        self.clickOnImg("./botImg/homePage/get_credit.png", 0.8)
+
+        time.sleep(sleep_radio*4)
+
+        self.click_screen()
+
+        self.continue_purchase("./botImg/homePage/recrute_pass.png")
+        self.continue_purchase("./botImg/homePage/75_discount.png")
+        self.continue_purchase("./botImg/homePage/50_discount.png")
+        self.continue_purchase("./botImg/homePage/99_discount.png")
+        self.check_new_day_update()
+
+    def continue_purchase(self, image_url):
+        i = 0
+        while (self.checkExist(image_url, 0.8) and i <=5):
+            self.clickOnImg(image_url, 0.8)
+            self.clickOnImg("./botImg/homePage/confirm_purchase.png", 0.8)
+
+            if self.checkExist("./botImage/homePage/not_enough_credit.png", 0.8):
+                print(log_format.format("not enough credit", "the purchase will stop"))
+                break
+            self.click_screen()
+            time.sleep(sleep_radio*2)
+            i = i + 1
+
+
+class HandleMission(Action):
+    def __init__(self):
+        pass
+
+    def perform_action(self):
+        self.goback()
+        self.clickOnImg("./botImg/homePage/mission.png", 0.8)
+        time.sleep(sleep_radio*2)
+        while (self.checkExist("./botImg/homePage/mission_complete.png", 0.8)):
+            self.clickOnImg("./botImg/homePage/mission_complete.png", 0.8)
+            time.sleep(sleep_radio*4)
+            self.click_screen()
+            time.sleep(sleep_radio*2)
+
+        self.clickOnImg("./botImg/homePage/weekly_mission.png", 0.8)
+        while (self.checkExist("./botImg/homePage/mission_complete.png", 0.8)):
+            self.clickOnImg("./botImg/homePage/mission_complete.png", 0.8)
+            time.sleep(sleep_radio*4)
+            self.click_screen()
+            time.sleep(sleep_radio*2)
+        self.check_new_day_update()
+
+
 if __name__ == '__main__':
-    print("I am working here")
+    # Action().click_screen()
+    Battle().battleControl(10, True, False)
+    # HandlePublicRecrute().perform_action()
+    # pass
+
     nine_hour_period = datetime.now()
     tw_hour_period = datetime.now()
     tf_hour_period = datetime.now()
     primaryFarm = ResourceFarm("levelUp", 10)
     # print("I am working here")
-    action_queue = [primaryFarm, HandlePurchase(), HandleBasement(), HandleMission()]
+    action_queue = [primaryFarm, HandleBasement(), HandlePurchase(), HandleMission()]
 
     while True:
         try:
@@ -358,6 +450,7 @@ if __name__ == '__main__':
 
         if nine_hour_diff >= 9:
             action_queue.append(HandleBasement())
+            action_queue.append(HandlePublicRecrute())
             nine_hour_period = now
 
         tw_hour_diff = 0
