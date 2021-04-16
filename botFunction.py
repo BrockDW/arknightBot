@@ -238,6 +238,18 @@ class ChipFarm(Battle):
         self.battleControl(self.times, True, False)
         self.check_new_day_update()
 
+class SSDustWalk(Battle):
+    def __init__(self, episodeID, times):
+        self.episodeID = episodeID
+        self.times = times
+
+    def perform_action(self):
+        self.goback()
+        self.clickOnImg("./botImg/homePage/ss_a_walk_in_the_dust.png", 0.8)
+        self.clickOnImg("./botImg/homePage/ss_battle_begin.png", 0.8)
+        self.clickOnImg("./botImg/homePage/"+self.episodeID +".png", 0.9)
+        self.battleControl(self.times, True, False)
+        # self.check_new_day_update()
 
 class Extermination(Battle):
     def __init__(self):
@@ -415,14 +427,15 @@ class HandleMission(Action):
 
 if __name__ == '__main__':
     # Action().click_screen()
-    Battle().battleControl(10, True, False)
+    # Battle().battleControl(10, True, False)
     # HandlePublicRecrute().perform_action()
     # pass
 
     nine_hour_period = datetime.now()
     tw_hour_period = datetime.now()
     tf_hour_period = datetime.now()
-    primaryFarm = ResourceFarm("levelUp", 10)
+    # primaryFarm = ResourceFarm("levelUp", 10)
+    primaryFarm = SSDustWalk("wd-8", 10)
     # print("I am working here")
     action_queue = [primaryFarm, HandleBasement(), HandlePurchase(), HandleMission()]
 
@@ -450,7 +463,6 @@ if __name__ == '__main__':
 
         if nine_hour_diff >= 9:
             action_queue.append(HandleBasement())
-            action_queue.append(HandlePublicRecrute())
             nine_hour_period = now
 
         tw_hour_diff = 0
@@ -462,6 +474,7 @@ if __name__ == '__main__':
 
         if tw_hour_diff >= 10:
             # action_queue.append(Extermination())
+            action_queue.append(HandlePublicRecrute())
             action_queue.append(primaryFarm)
             action_queue.append(HandleMission())
             tw_hour_period = now
