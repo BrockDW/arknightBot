@@ -20,8 +20,15 @@ class Action:
 
     def clickOnImg(self, imgUrl, confidenceValue):
         if self.checkExist("./botImg/connection_lost.png", 0.8):
-            self.clickOnImg("./botImg/connection_lost_confirm.png", 0.8)
-            time.sleep(100)
+            # self.clickOnImg("./botImg/connection_lost_confirm.png", 0.8)
+            centerPoint = pyautogui.locateCenterOnScreen("./botImg/connection_lost_confirm.png", confidence=confidenceValue)
+            if (centerPoint):
+                pyautogui.click(centerPoint[0], centerPoint[1])
+                print(log_format.format(imgUrl, "image clicked"))
+                time.sleep(100)
+            else:
+                print(log_format.format(imgUrl, "button not found, please adjust your screen"))
+
         try:
             centerPoint = pyautogui.locateCenterOnScreen(imgUrl, confidence=confidenceValue)
             if (centerPoint):
