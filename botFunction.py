@@ -124,6 +124,30 @@ class Action:
 
     # def format_print(self, string1,string2):
 
+    def drag(self, direction, distance, mouse_type):
+        if direction == "left":
+            x = 10
+            y = 200
+            target_distance = distance
+
+        elif direction == "right":
+            x = 1900
+            y = 200
+            target_distance = 0-distance
+            # pyautogui.moveTo(1900, 500)
+            # pyautogui.dragTo(1900 - distance, 500, button=mouse_type)
+        else:
+            x = 0
+            y = 0
+            target_distance = distance
+
+        pyautogui.mouseDown(x, y)
+        pyautogui.moveTo(x + target_distance, y, duration=1)
+        pyautogui.mouseUp()
+        # pyautogui.moveTo(x, y)
+        # pyautogui.dragTo(x + distance, y, button=mouse_type)
+
+
 
 
 class Battle(Action):
@@ -247,7 +271,8 @@ class SSDustWalk(Battle):
         self.goback()
         self.clickOnImg("./botImg/homePage/ss_a_walk_in_the_dust.png", 0.8)
         self.clickOnImg("./botImg/homePage/ss_battle_begin.png", 0.8)
-        self.clickOnImg("./botImg/homePage/"+self.episodeID +".png", 0.9)
+        self.drag("right", 1900, "left")
+        self.clickOnImg("./botImg/homePage/"+self.episodeID +".png", 0.8)
         self.battleControl(self.times, True, False)
         # self.check_new_day_update()
 
