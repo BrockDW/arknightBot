@@ -84,7 +84,7 @@ class Action:
         # print()
 
     def click_screen(self):
-        pyautogui.click(1900, 0)
+        pyautogui.click(1900, 10)
 
     def goback(self):
         # time.sleep(30)
