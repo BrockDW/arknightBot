@@ -44,6 +44,7 @@ class Action:
     def clickOnImg(self, imgUrl, confidenceValue):
         self.check_new_day_update()
         self.check_connection_lost()
+        self.check_login_failed()
         try:
             centerPoint = pyautogui.locateCenterOnScreen(imgUrl, confidence=confidenceValue)
             if (centerPoint):
@@ -99,28 +100,58 @@ class Action:
             HandleBasement().perform_action()
             HandlePurchase().perform_action()
 
+    def special_case_click(self, case_img, confirm_img):
+        if self.checkExist(case_img, 0.8):
+            centerPoint = pyautogui.locateCenterOnScreen(confirm_img, confidence=0.8)
+            if (centerPoint):
+                pyautogui.click(centerPoint[0], centerPoint[1])
+                print(log_format.format(confirm_img, "image clicked"))
+                time.sleep(sleep_radio*20)
+
+            else:
+                print(log_format.format(confirm_img, "button not found, please adjust your screen"))
+            return True
+        else:
+            return False
 
     def check_new_day_update(self):
         time.sleep(sleep_radio*2)
-        if self.checkExist("./botImg/updated.png", 0.8):
-            self.clickOnImg("./botImg/confirm.png", 0.8)
+        update_confirm = self.special_case_click("./botImg/updated.png", "./botImg/confirm.png")
+        update_failed_confirm = self.special_case_click("./botImg/update_failed.png", "./botImg/confirm.png")
+        if (update_failed_confirm):
+            time.sleep(360)
+            HandleBasement().perform_action()
+            HandlePurchase().perform_action()
+        # if self.checkExist("./botImg/updated.png", 0.8):
+        #     self.clickOnImg("./botImg/confirm.png", 0.8)
+        #
+        #     if self.checkExist("./botImg/update_failed.png", 0.8):
+        #         self.clickOnImg("./botImg/confirm.png", 0.8)
 
-            if self.checkExist("./botImg/update_failed.png", 0.8):
-                self.clickOnImg("./botImg/confirm.png", 0.8)
-                time.sleep(360)
-                HandleBasement().perform_action()
-                HandlePurchase().perform_action()
 
     def check_connection_lost(self):
-        if self.checkExist("./botImg/connection_lost.png", 0.8):
-            # self.clickOnImg("./botImg/connection_lost_confirm.png", 0.8)
-            centerPoint = pyautogui.locateCenterOnScreen("./botImg/connection_lost_confirm.png", confidence=0.8)
-            if (centerPoint):
-                pyautogui.click(centerPoint[0], centerPoint[1])
-                print(log_format.format("./botImg/connection_lost_confirm.png", "image clicked"))
-                time.sleep(sleep_radio*20)
-            else:
-                print(log_format.format("./botImg/connection_lost_confirm.png", "button not found, please adjust your screen"))
+        self.special_case_click("./botImg/connection_lost.png", "./botImg/connection_lost_confirm.png")
+        # if self.checkExist("./botImg/connection_lost.png", 0.8):
+        #     # self.clickOnImg("./botImg/connection_lost_confirm.png", 0.8)
+        #     centerPoint = pyautogui.locateCenterOnScreen("./botImg/connection_lost_confirm.png", confidence=0.8)
+        #     if (centerPoint):
+        #         pyautogui.click(centerPoint[0], centerPoint[1])
+        #         print(log_format.format("./botImg/connection_lost_confirm.png", "image clicked"))
+        #         time.sleep(sleep_radio*20)
+        #     else:
+        #         print(log_format.format("./botImg/connection_lost_confirm.png", "button not found, please adjust your screen"))
+
+    def check_login_failed(self):
+        self.special_case_click("./botImg/login_failed.png", "./botImg/confirm.png")
+        # if self.checkExist("./botImg/connection_lost.png", 0.8):
+        #     # self.clickOnImg("./botImg/connection_lost_confirm.png", 0.8)
+        #     centerPoint = pyautogui.locateCenterOnScreen("./botImg/connection_lost_confirm.png", confidence=0.8)
+        #     if (centerPoint):
+        #         pyautogui.click(centerPoint[0], centerPoint[1])
+        #         print(log_format.format("./botImg/connection_lost_confirm.png", "image clicked"))
+        #         time.sleep(sleep_radio*20)
+        #     else:
+        #         print(log_format.format("./botImg/connection_lost_confirm.png", "button not found, please adjust your screen"))
 
     # def format_print(self, string1,string2):
 
