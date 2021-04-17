@@ -45,6 +45,7 @@ class Action:
         self.check_new_day_update()
         self.check_connection_lost()
         self.check_login_failed()
+        self.check_battle_failed()
         try:
             centerPoint = pyautogui.locateCenterOnScreen(imgUrl, confidence=confidenceValue)
             if (centerPoint):
@@ -107,7 +108,7 @@ class Action:
                 pyautogui.click(centerPoint[0], centerPoint[1])
                 print(log_format.format(confirm_img, "image clicked"))
                 time.sleep(sleep_radio*20)
-
+                self.goback()
             else:
                 print(log_format.format(confirm_img, "button not found, please adjust your screen"))
             return True
@@ -119,7 +120,6 @@ class Action:
         update_confirm = self.special_case_click("./botImg/updated.png", "./botImg/confirm.png")
         update_failed_confirm = self.special_case_click("./botImg/update_failed.png", "./botImg/confirm.png")
         if (update_failed_confirm):
-            time.sleep(360)
             HandleBasement().perform_action()
             HandlePurchase().perform_action()
         # if self.checkExist("./botImg/updated.png", 0.8):
@@ -153,6 +153,8 @@ class Action:
         #     else:
         #         print(log_format.format("./botImg/connection_lost_confirm.png", "button not found, please adjust your screen"))
 
+    def check_battle_failed(self):
+        self.special_case_click("./botImg/battle_failed.png", "./botImg/battle/refuse_trade.png")
     # def format_print(self, string1,string2):
 
     def drag(self, direction, distance, mouse_type):
@@ -466,22 +468,22 @@ class HandleMission(Action):
         self.goback()
         self.clickOnImg("./botImg/homePage/mission.png", 0.8)
         time.sleep(sleep_radio*2)
-        while (self.checkExist("./botImg/homePage/mission_complete.png", 0.8)):
-            self.clickOnImg("./botImg/homePage/mission_complete.png", 0.8)
-            time.sleep(sleep_radio*4)
-            self.click_screen()
-            time.sleep(sleep_radio*2)
+        self.clickOnImg("./botImg/homePage/daily_mission.png", 0.8)
+        self.click_mission()
 
         self.clickOnImg("./botImg/homePage/weekly_mission.png", 0.8)
+        self.click_mission()
+
+    def click_mission(self):
         while (self.checkExist("./botImg/homePage/mission_complete.png", 0.8)):
             self.clickOnImg("./botImg/homePage/mission_complete.png", 0.8)
             time.sleep(sleep_radio*4)
             self.click_screen()
             time.sleep(sleep_radio*2)
-        self.check_new_day_update()
 
 
 if __name__ == '__main__':
+    HandleMission().perform_action()
 
     nine_hour_period = datetime.now()
     tw_hour_period = datetime.now()
