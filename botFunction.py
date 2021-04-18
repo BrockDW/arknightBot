@@ -39,11 +39,38 @@ class Action:
     def perform_action(self):
         pass
 
+    def click_img(self, img, confidence):
+        try:
+            centerPoint = pyautogui.locateCenterOnScreen(img, confidence=confidence)
+            if (centerPoint):
+                pyautogui.click(centerPoint[0], centerPoint[1])
+                print(log_format.format(img, "image clicked"))
+            else:
+                print(log_format.format(img, "button not found, please adjust your screen"))
+        except OSError:
+            print(log_format.format(img, "image file did not exists"))
+
+    def click_list_img(self, imgList, confidence):
+        for i in range(len(imgList) - 1):
+            cur_image = imgList[i]
+            next_image = imgList[i+1]
+            while not self.checkExist(next_image, confidence):
+                self.check_new_day_update()
+                self.check_connection_lost()
+                self.check_login_failed()
+                self.check_battle_failed()
+                self.click_img(cur_image, confidence)
+
+        self.click_img(imgList[-1], confidence)
+
     def clickOnImg(self, imgUrl, confidenceValue):
         self.check_new_day_update()
         self.check_connection_lost()
         self.check_login_failed()
         self.check_battle_failed()
+
+        print()
+
         try:
             centerPoint = pyautogui.locateCenterOnScreen(imgUrl, confidence=confidenceValue)
             if (centerPoint):
@@ -54,6 +81,8 @@ class Action:
         except OSError:
             print(log_format.format(imgUrl, "image file did not exists"))
         time.sleep(sleep_radio)
+
+        print()
 
         self.waitForImg("./botImg/waitingIcon.png", 5, 0.7)
         self.waitForImg("./botImg/battle/endGameCutPic.png", 5, 0.8)
@@ -96,6 +125,7 @@ class Action:
             self.clickOnImg("./botImg/closePanel.png", 0.8)
             self.clickOnImg("./botImg/supplyIcon.png", 0.8)
             self.clickOnImg("./botImg/closePanelSecond.png", 0.8)
+            HandleFriend().perform_action()
             HandleBasement().perform_action()
             HandlePurchase().perform_action()
 
@@ -205,7 +235,7 @@ class Battle(Action):
                 else:
                     self.clickOnImg("./botImg/battle/refuse_trade.png", 0.9)
                     return 0
-            
+
             if (self.checkExist("./botImg/battle/killMissionEnd.png", 0.7)):
                 self.click_screen()
 
@@ -458,6 +488,27 @@ class HandlePurchase(Action):
             i = i + 1
 
 
+class HandleFriend(Action):
+    def __init__(self):
+        pass
+
+    def perform_action(self):
+        self.goback()
+        self.clickOnImg("./botImg/homePage/friend.png", 0.8)
+        time.sleep(sleep_radio * 2)
+        self.clickOnImg("./botImg/homePage/friend_list.png", 0.8)
+        time.sleep(sleep_radio * 2)
+        self.clickOnImg("./botImg/homePage/visite_base.png", 0.8)
+        time.sleep(sleep_radio * 2)
+
+        while self.checkExist("botImg/homePage/visit_next_friend.png", 0.8):
+            self.clickOnImg("botImg/homePage/visit_next_friend.png", 0.8)
+            time.sleep(sleep_radio)
+
+
+        self.check_new_day_update()
+
+
 class HandleMission(Action):
     def __init__(self):
         pass
@@ -482,6 +533,8 @@ class HandleMission(Action):
 
 
 if __name__ == '__main__':
+    # HandleFriend().perform_action()
+    # HandlePublicRecrute().perform_action()
     nine_hour_period = datetime.now()
     tw_hour_period = datetime.now()
     tf_hour_period = datetime.now()
