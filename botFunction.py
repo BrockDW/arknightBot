@@ -304,7 +304,7 @@ class SSDustWalk(Battle):
         self.goback()
         self.clickOnImg("./botImg/homePage/ss_a_walk_in_the_dust.png", 0.8)
         self.clickOnImg("./botImg/homePage/ss_battle_begin.png", 0.8)
-        self.drag("right", 1900, "left")
+        #self.drag("right", 1000, "left")
         self.clickOnImg("./botImg/homePage/"+self.episodeID +".png", 0.8)
         self.battleControl(self.times, True, False)
         # self.check_new_day_update()
@@ -489,9 +489,9 @@ if __name__ == '__main__':
     tw_hour_period = datetime.now()
     tf_hour_period = datetime.now()
     # primaryFarm = ResourceFarm("levelUp", 10)
-    primaryFarm = SSDustWalk("wd-8", 10)
+    primaryFarm = SSDustWalk("wd-5", 10)
     # print("I am working here")
-    action_queue = [primaryFarm, HandleBasement(), HandlePurchase(), HandleMission()]
+    action_queue = [primaryFarm, HandleBasement(), HandlePublicRecrute(), HandlePurchase(), HandleMission()]
 
     while True:
         try:
