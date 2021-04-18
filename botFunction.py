@@ -7,7 +7,7 @@ from os.path import isfile, join
 
 log_format = "{:>40} -- {:>10}"
 starCount = 100
-sleep_radio = 8
+sleep_radio = 10
 single_four_star = ["zy", "xr", "wy", "ksfh", "tzgy"]
 double_four_star = {
     "js": ["qg", "jwgy", "jjgy", "ssgy", "shuchu","jzw"],
