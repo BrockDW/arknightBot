@@ -526,6 +526,8 @@ class HandleMission(Action):
 
     def click_mission(self):
         while (self.checkExist("./botImg/homePage/mission_complete.png", 0.8)):
+            if self.checkExist("./botImg/mission_end.png", 0.8):
+                break
             self.clickOnImg("./botImg/homePage/mission_complete.png", 0.8)
             time.sleep(sleep_radio*4)
             self.click_screen()
