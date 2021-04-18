@@ -5,11 +5,9 @@ import time
 from os import listdir
 from os.path import isfile, join
 
-
-# logging.basicConfig(format='%(name)s - %(levelname)s - %(message)s')
 log_format = "{:>40} -- {:>10}"
 starCount = 100
-sleep_radio = 5
+sleep_radio = 8
 single_four_star = ["zy", "xr", "wy", "ksfh", "tzgy"]
 double_four_star = {
     "js": ["qg", "jwgy", "jjgy", "ssgy", "shuchu","jzw"],
@@ -448,7 +446,7 @@ class HandlePurchase(Action):
 
     def continue_purchase(self, image_url):
         i = 0
-        while (self.checkExist(image_url, 0.8) and i <=5):
+        while (self.checkExist(image_url, 0.8) and i < 3):
             self.clickOnImg(image_url, 0.8)
             self.clickOnImg("./botImg/homePage/confirm_purchase.png", 0.8)
 
@@ -470,32 +468,29 @@ class HandleMission(Action):
         time.sleep(sleep_radio*2)
         self.clickOnImg("./botImg/homePage/daily_mission.png", 0.8)
         self.click_mission()
-
         self.clickOnImg("./botImg/homePage/weekly_mission.png", 0.8)
         self.click_mission()
+
+
 
     def click_mission(self):
         while (self.checkExist("./botImg/homePage/mission_complete.png", 0.8)):
             self.clickOnImg("./botImg/homePage/mission_complete.png", 0.8)
             time.sleep(sleep_radio*4)
             self.click_screen()
-            time.sleep(sleep_radio*2)
+            time.sleep(sleep_radio*4)
 
 
 if __name__ == '__main__':
-    HandleMission().perform_action()
-
     nine_hour_period = datetime.now()
     tw_hour_period = datetime.now()
     tf_hour_period = datetime.now()
     # primaryFarm = ResourceFarm("levelUp", 10)
-    primaryFarm = SSDustWalk("wd-5", 10)
-    # print("I am working here")
+    primaryFarm = SSDustWalk("wd-8", 10)
     action_queue = [primaryFarm, HandleBasement(), HandlePublicRecrute(), HandlePurchase(), HandleMission()]
 
     while True:
         try:
-            # print("I am working here")
             current_action = action_queue.pop(0)
             current_action.perform_action()
             # print(current_action)
@@ -527,7 +522,6 @@ if __name__ == '__main__':
             tw_hour_diff = hour - tw_hour
 
         if tw_hour_diff >= 10:
-            # action_queue.append(Extermination())
             action_queue.append(HandlePublicRecrute())
             action_queue.append(primaryFarm)
             action_queue.append(HandleMission())
