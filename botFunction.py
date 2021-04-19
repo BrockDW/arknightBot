@@ -77,9 +77,9 @@ class HandleOpen(Action):
         pass
 
 
-if __name__ == '__main__':
-    handle_open = HandleOpen()
-    handle_open.perform_action()
+##if __name__ == '__main__':
+##    handle_open = HandleOpen()
+##    handle_open.perform_action()
 
 
 
@@ -232,6 +232,8 @@ def chipFarm(chipType, bigChip, times=10):
 
     battleControl(times)
 
+battleControl(6)
+
 #
 # clickOnImg("./botImg/battle/material/4-4.png", 0.9)
 # battleControl(10)
@@ -278,7 +280,7 @@ def chipFarm(chipType, bigChip, times=10):
 
 # pyautogui.dragTo(200, 200)
 
-# battleControl(8)
+
 
 
 # clickOnImg("./botImg/homePage/base.png", 0.8)
