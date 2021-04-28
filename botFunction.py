@@ -29,7 +29,8 @@ double_five_star = {
 trible_five_star = ["shuchu", "ycw", "js"]
 from datetime import datetime
 
-
+use_potion = False
+use_stone = False
 
 class Action:
     def __init__(self):
@@ -294,7 +295,7 @@ class ResourceFarm(Battle):
 
             self.clickOnImg("./botImg/battle/SK-5.png", 0.8)
 
-        self.battleControl(self.times, True, False)
+        self.battleControl(self.times, use_potion, use_stone)
         self.check_new_day_update()
 
 class ChipFarm(Battle):
@@ -320,7 +321,7 @@ class ChipFarm(Battle):
 
             self.clickOnImg("./botImg/battle/SK-5.png", 0.8)
 
-        self.battleControl(self.times, True, False)
+        self.battleControl(self.times, use_potion, use_stone)
         self.check_new_day_update()
 
 class SSDustWalk(Battle):
@@ -334,7 +335,7 @@ class SSDustWalk(Battle):
         self.clickOnImg("./botImg/homePage/ss_battle_begin.png", 0.8)
         #self.drag("right", 1000, "left")
         self.clickOnImg("./botImg/homePage/"+self.episodeID +".png", 0.8)
-        self.battleControl(self.times, True, False)
+        self.battleControl(self.times, use_potion, use_stone)
         # self.check_new_day_update()
 
 class Extermination(Battle):
@@ -349,7 +350,7 @@ class Extermination(Battle):
         self.clickOnImg("./botImg/battle/dragon_door_city.png", 0.8)
         self.clickOnImg("./botImg/battle/extermination_progress.png", 0.8)
 
-        self.battleControl(1, True, False)
+        self.battleControl(1, use_potion, use_stone)
         self.check_new_day_update()
 
 
@@ -537,6 +538,7 @@ class HandleMission(Action):
 if __name__ == '__main__':
     # HandleFriend().perform_action()
     # HandlePublicRecrute().perform_action()
+    Battle().battleControl(10, use_potion, use_stone)
     nine_hour_period = datetime.now()
     tw_hour_period = datetime.now()
     tf_hour_period = datetime.now()
