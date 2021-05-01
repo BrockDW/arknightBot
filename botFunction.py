@@ -7,7 +7,7 @@ from os.path import isfile, join
 
 log_format = "{:>40} -- {:>10}"
 starCount = 100
-sleep_radio = 10
+sleep_radio = 8
 single_four_star = ["zy", "xr", "wy", "ksfh", "tzgy"]
 double_four_star = {
     "js": ["qg", "jwgy", "jjgy", "ssgy", "shuchu","jzw"],
@@ -29,7 +29,8 @@ double_five_star = {
 trible_five_star = ["shuchu", "ycw", "js"]
 from datetime import datetime
 
-
+use_potion = False
+use_stone = False
 
 class Action:
     def __init__(self):
@@ -149,6 +150,7 @@ class Action:
         if (update_failed_confirm):
             HandleBasement().perform_action()
             HandlePurchase().perform_action()
+            HandleMission().perform_action()
         # if self.checkExist("./botImg/updated.png", 0.8):
         #     self.clickOnImg("./botImg/confirm.png", 0.8)
         #
@@ -184,7 +186,7 @@ class Action:
         self.special_case_click("./botImg/battle_failed.png", "./botImg/battle/refuse_trade.png")
     # def format_print(self, string1,string2):
 
-    def drag(self, direction, distance, mouse_type):
+    def drag(self, direction, distance):
         if direction == "left":
             x = 10
             y = 200
@@ -204,8 +206,21 @@ class Action:
         pyautogui.mouseDown(x, y)
         pyautogui.moveTo(x + target_distance, y, duration=1)
         pyautogui.mouseUp()
-        # pyautogui.moveTo(x, y)
-        # pyautogui.dragTo(x + distance, y, button=mouse_type)
+
+
+    def seek_image(self, img, confidence):
+        self.drag("left", 800)
+        iteration = 0
+        while not self.checkExist(img, confidence):
+            if iteration >= 10:
+                break
+            self.drag("right", 100)
+            time.sleep(sleep_radio*2)
+            iteration+=1
+        if self.checkExist(img, confidence):
+            return True
+        else:
+            return False
 
 
 
@@ -276,6 +291,7 @@ class ResourceFarm(Battle):
         self.times = times
 
     def perform_action(self):
+        oktofarm = True
         self.goback()
         self.clickOnImg("./botImg/homePage/battle.png", 0.8)
         self.clickOnImg("./botImg/battle/resourceGain.png", 0.8)
@@ -290,11 +306,17 @@ class ResourceFarm(Battle):
         elif (self.battleType == "baseBuildRecource"):
             self.clickOnImg("./botImg/battle/baseBuildRecource.png", 0.8)
             time.sleep(sleep_radio*2)
+        elif (self.battleType == "elite_pass"):
+            if self.seek_image("./botImg/battle/redTicket.png", 0.8):
+                self.clickOnImg("./botImg/battle/redTicket.png", 0.8)
+                self.clickOnImg("./botImg/battle/AP-5.png", 0.8)
+            else:
+                oktofarm = False
 
-            self.clickOnImg("./botImg/battle/SK-5.png", 0.8)
-
-        self.battleControl(self.times, True, False)
-        self.check_new_day_update()
+            # self.clickOnImg("./botImg/battle/SK-5.png", 0.8)
+        if oktofarm:
+            self.battleControl(self.times, use_potion, use_stone)
+            self.check_new_day_update()
 
 class ChipFarm(Battle):
     def __init__(self, chip_type, times):
@@ -304,7 +326,7 @@ class ChipFarm(Battle):
     def perform_action(self):
         self.goback()
         self.clickOnImg("./botImg/homePage/battle.png", 0.8)
-        self.clickOnImg("./botImg/battle/chips.png", 0.8)
+        self.clickOnImg("./botImg/battle/resourceGain.png", 0.8)
         if (self.chip_type == "mage_sniper"):
             self.clickOnImg("./botImg/battle/chips/airDmg.png", 0.8)
             time.sleep(sleep_radio*2)
@@ -317,9 +339,10 @@ class ChipFarm(Battle):
             self.clickOnImg("./botImg/battle/baseBuildRecource.png", 0.8)
             time.sleep(sleep_radio*2)
 
+
             self.clickOnImg("./botImg/battle/SK-5.png", 0.8)
 
-        self.battleControl(self.times, True, False)
+        self.battleControl(self.times, use_potion, use_stone)
         self.check_new_day_update()
 
 class SSDustWalk(Battle):
@@ -333,7 +356,7 @@ class SSDustWalk(Battle):
         self.clickOnImg("./botImg/homePage/ss_battle_begin.png", 0.8)
         #self.drag("right", 1000, "left")
         self.clickOnImg("./botImg/homePage/"+self.episodeID +".png", 0.8)
-        self.battleControl(self.times, True, False)
+        self.battleControl(self.times, use_potion, use_stone)
         # self.check_new_day_update()
 
 class Extermination(Battle):
@@ -348,7 +371,7 @@ class Extermination(Battle):
         self.clickOnImg("./botImg/battle/dragon_door_city.png", 0.8)
         self.clickOnImg("./botImg/battle/extermination_progress.png", 0.8)
 
-        self.battleControl(1, True, False)
+        self.battleControl(1, use_potion, use_stone)
         self.check_new_day_update()
 
 
@@ -500,8 +523,8 @@ class HandleFriend(Action):
         self.clickOnImg("./botImg/homePage/visite_base.png", 0.8)
         time.sleep(sleep_radio * 2)
 
-        while self.checkExist("botImg/homePage/visit_next_friend.png", 0.8):
-            self.clickOnImg("botImg/homePage/visit_next_friend.png", 0.8)
+        while self.checkExist("./botImg/homePage/visit_next_friend.png", 0.8):
+            self.clickOnImg("./botImg/homePage/visit_next_friend.png", 0.8)
             time.sleep(sleep_radio)
 
 
@@ -531,6 +554,7 @@ class HandleMission(Action):
             time.sleep(sleep_radio*4)
             self.click_screen()
             time.sleep(sleep_radio*4)
+            self.click_screen()
 
 
 if __name__ == '__main__':
@@ -539,11 +563,18 @@ if __name__ == '__main__':
     #Action().goback()
     Battle().battleControl(10, False, False)
     # HandlePublicRecrute().perform_action()
+    use_potion = True
+    Battle().battleControl(10, use_potion, use_stone)
+    ResourceFarm("elite_pass", 3).perform_action()
+
+    use_potion = False
+
+    HandlePublicRecrute().perform_action()
     nine_hour_period = datetime.now()
     tw_hour_period = datetime.now()
     tf_hour_period = datetime.now()
-    # primaryFarm = ResourceFarm("levelUp", 10)
-    primaryFarm = SSDustWalk("wd-8", 10)
+    primaryFarm = ResourceFarm("levelUp", 10)
+    # primaryFarm = SSDustWalk("wd-8", 10)
     action_queue = [primaryFarm, HandleBasement(), HandlePublicRecrute(), HandlePurchase(), HandleMission()]
 
     while True:
@@ -735,6 +766,8 @@ def chipFarm(chipType, bigChip, times=10):
 
     battleControl(times)
 
+battleControl(6)
+
 #
 # clickOnImg("./botImg/battle/material/4-4.png", 0.9)
 # battleControl(10)
@@ -779,7 +812,7 @@ def chipFarm(chipType, bigChip, times=10):
 
 # pyautogui.dragTo(200, 200)
 
-# battleControl(8)
+
 
 
 # clickOnImg("./botImg/homePage/base.png", 0.8)
