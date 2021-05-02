@@ -65,11 +65,6 @@ class Action:
         self.click_img(imgList[-1], confidence)
 
     def clickOnImg(self, imgUrl, confidenceValue):
-        self.check_new_day_update()
-        self.check_connection_lost()
-        self.check_login_failed()
-        self.check_battle_failed()
-
         print()
 
         try:
@@ -81,13 +76,17 @@ class Action:
                 print(log_format.format(imgUrl, "button not found, please adjust your screen"))
         except OSError:
             print(log_format.format(imgUrl, "image file did not exists"))
-        time.sleep(sleep_radio)
+        time.sleep(sleep_radio*2)
 
         print()
 
         self.waitForImg("./botImg/waitingIcon.png", 5, 0.7)
         self.waitForImg("./botImg/battle/endGameCutPic.png", 5, 0.8)
         self.waitForImg("./botImg/baseIntro.png", 5, 0.8)
+        self.check_new_day_update()
+        self.check_connection_lost()
+        self.check_login_failed()
+        self.check_battle_failed()
         print("*"*starCount)
 
     def checkExist(self, imgUrl, confidenceValue):
@@ -605,14 +604,17 @@ class HandleMission(Action):
 
 if __name__ == '__main__':
     # HandleFriend().perform_action()
+    #Action().goback()
+    #Action().goback()
     # HandlePublicRecrute().perform_action()
     # use_potion = True
-    # Battle().battleControl(10, use_potion, use_stone)
+
+    ##Battle().battleControl(10, use_potion, use_stone)
     # ResourceFarm("elite_pass", 3).perform_action()
 
     use_potion = False
 
-    HandlePublicRecrute().perform_action()
+    # HandlePublicRecrute().perform_action()
     nine_hour_period = datetime.now()
     tw_hour_period = datetime.now()
     tf_hour_period = datetime.now()
@@ -657,6 +659,7 @@ if __name__ == '__main__':
             action_queue.append(HandlePublicRecrute())
             action_queue.append(primaryFarm)
             action_queue.append(HandleMission())
+            action_queue.append(HandleFriend())
             tw_hour_period = now
 
 
