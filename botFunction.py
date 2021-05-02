@@ -7,7 +7,7 @@ from os.path import isfile, join
 
 log_format = "{:>40} -- {:>10}"
 starCount = 100
-sleep_radio = 8
+sleep_radio = 2
 single_four_star = ["zy", "xr", "wy", "ksfh", "tzgy"]
 double_four_star = {
     "js": ["qg", "jwgy", "jjgy", "ssgy", "shuchu","jzw"],
@@ -121,11 +121,23 @@ class Action:
         self.clickOnImg("./botImg/quickJump.png", 0.8)
         self.clickOnImg("./botImg/quickJumpHome.png", 0.8)
         time.sleep(sleep_radio*6)
-        if self.checkExist("./botImg/closePanel.png", 0.8):
+        self.click_screen()
+
+        newDayStarted = False
+
+        if (self.checkExist("./botImg/homePage/daily_message.png", 0.8)):
             print(log_format.format("a new day has started", "performing basic operation"))
             self.clickOnImg("./botImg/closePanel.png", 0.8)
-            self.clickOnImg("./botImg/supplyIcon.png", 0.8)
-            self.clickOnImg("./botImg/closePanelSecond.png", 0.8)
+            newDayStarted = True
+
+        if self.checkExist("./botImg/homePage/daily_reword.png", 0.8):
+            print(log_format.format("no new message today", "reword collected"))
+            self.clickOnImg("./botImg/closePanel.png", 0.8)
+            newDayStarted = True
+        # self.clickOnImg("./botImg/supplyIcon.png", 0.8)
+        # self.clickOnImg("./botImg/closePanelSecond.png", 0.8)
+        if (newDayStarted):
+            SecondYearGoBack().perform_action()
             HandleFriend().perform_action()
             HandleBasement().perform_action()
             HandlePurchase().perform_action()
@@ -210,12 +222,14 @@ class Action:
 
 
     def seek_image(self, img, confidence):
-        self.drag("left", 800)
+        self.drag("left", 1200)
+        self.drag("left", 1200)
+        self.drag("left", 1200)
         iteration = 0
         while not self.checkExist(img, confidence):
-            if iteration >= 10:
+            if iteration >= 20:
                 break
-            self.drag("right", 100)
+            self.drag("right", 300)
             time.sleep(sleep_radio*2)
             iteration+=1
         if self.checkExist(img, confidence):
@@ -223,6 +237,21 @@ class Action:
         else:
             return False
 
+
+class SecondYearGoBack(Action):
+    def __init__(self):
+        pass
+
+    def perform_action(self):
+        if (self.checkExist("./botImg/homePage/2nd_yeah_reword.png", 0.8)):
+            self.clickOnImg("./botImg/homePage/2nd_yeah_reword.png", 0.8)
+            self.click_screen()
+            self.clickOnImg("./botImg/closePanel.png", 0.8)
+        if (self.checkExist("./botImg/homePage/mining_reward.png", 0.8)):
+            self.clickOnImg("./botImg/homePage/begin_mining.png", 0.8)
+            time.sleep(sleep_radio*8)
+            self.click_screen()
+            self.clickOnImg("./botImg/closePanel.png", 0.8)
 
 
 
@@ -358,6 +387,22 @@ class SSDustWalk(Battle):
         #self.drag("right", 1000, "left")
         self.clickOnImg("./botImg/homePage/"+self.episodeID +".png", 0.8)
         self.battleControl(self.times, use_potion, use_stone)
+        # self.check_new_day_update()
+
+class SSUnderTides(Battle):
+    def __init__(self, episodeID, times):
+        self.episodeID = episodeID
+        self.times = times
+
+    def perform_action(self):
+        self.goback()
+        self.clickOnImg("./botImg/homePage/battle.png", 0.8)
+        self.clickOnImg("./botImg/battle/under_tide.png", 0.8)
+        self.clickOnImg("./botImg/battle/under_tide_begin.png", 0.8)
+        #self.drag("right", 1000, "left")
+        if (self.seek_image("./botImg/battle/"+self.episodeID +".png", 0.9)):
+            self.clickOnImg("./botImg/battle/"+self.episodeID +".png", 0.9)
+            self.battleControl(self.times, use_potion, use_stone)
         # self.check_new_day_update()
 
 class Extermination(Battle):
@@ -552,18 +597,18 @@ class HandleMission(Action):
             if self.checkExist("./botImg/mission_end.png", 0.8):
                 break
             self.clickOnImg("./botImg/homePage/mission_complete.png", 0.8)
-            time.sleep(sleep_radio*4)
+            time.sleep(sleep_radio*5)
             self.click_screen()
-            time.sleep(sleep_radio*4)
+            time.sleep(sleep_radio*5)
             self.click_screen()
 
 
 if __name__ == '__main__':
     # HandleFriend().perform_action()
     # HandlePublicRecrute().perform_action()
-    use_potion = True
-    Battle().battleControl(10, use_potion, use_stone)
-    ResourceFarm("elite_pass", 3).perform_action()
+    # use_potion = True
+    # Battle().battleControl(10, use_potion, use_stone)
+    # ResourceFarm("elite_pass", 3).perform_action()
 
     use_potion = False
 
@@ -571,7 +616,8 @@ if __name__ == '__main__':
     nine_hour_period = datetime.now()
     tw_hour_period = datetime.now()
     tf_hour_period = datetime.now()
-    primaryFarm = ResourceFarm("levelUp", 10)
+    # primaryFarm = ResourceFarm("levelUp", 10)
+    primaryFarm = SSUnderTides("SV-9", 10)
     # primaryFarm = SSDustWalk("wd-8", 10)
     action_queue = [primaryFarm, HandleBasement(), HandlePublicRecrute(), HandlePurchase(), HandleMission()]
 
