@@ -561,15 +561,14 @@ if __name__ == '__main__':
     # HandleFriend().perform_action()
     #Action().goback()
     #Action().goback()
-    Battle().battleControl(10, False, False)
     # HandlePublicRecrute().perform_action()
-    use_potion = True
-    Battle().battleControl(10, use_potion, use_stone)
-    ResourceFarm("elite_pass", 3).perform_action()
+    # use_potion = True
+    ##Battle().battleControl(10, use_potion, use_stone)
+    # ResourceFarm("elite_pass", 3).perform_action()
 
     use_potion = False
 
-    HandlePublicRecrute().perform_action()
+    # HandlePublicRecrute().perform_action()
     nine_hour_period = datetime.now()
     tw_hour_period = datetime.now()
     tf_hour_period = datetime.now()
@@ -613,6 +612,7 @@ if __name__ == '__main__':
             action_queue.append(HandlePublicRecrute())
             action_queue.append(primaryFarm)
             action_queue.append(HandleMission())
+            action_quque.append(HandleFriend())
             tw_hour_period = now
 
 
