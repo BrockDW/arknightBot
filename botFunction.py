@@ -7,7 +7,7 @@ from os.path import isfile, join
 
 log_format = "{:>40} -- {:>10}"
 starCount = 100
-sleep_radio = 2
+sleep_radio = 8
 single_four_star = ["zy", "xr", "wy", "ksfh", "tzgy"]
 double_four_star = {
     "js": ["qg", "jwgy", "jjgy", "ssgy", "shuchu","jzw"],
@@ -609,17 +609,17 @@ if __name__ == '__main__':
     # HandlePublicRecrute().perform_action()
     # use_potion = True
 
-    ##Battle().battleControl(10, use_potion, use_stone)
+    Battle().battleControl(20, use_potion, use_stone)
     # ResourceFarm("elite_pass", 3).perform_action()
 
-    use_potion = False
+    use_potion = True
 
     # HandlePublicRecrute().perform_action()
     nine_hour_period = datetime.now()
     tw_hour_period = datetime.now()
     tf_hour_period = datetime.now()
-    # primaryFarm = ResourceFarm("levelUp", 10)
-    primaryFarm = SSUnderTides("SV-9", 10)
+    primaryFarm = ResourceFarm("levelUp", 10)
+    # primaryFarm = SSUnderTides("SV-8", 10)
     # primaryFarm = SSDustWalk("wd-8", 10)
     action_queue = [primaryFarm, HandleBasement(), HandlePublicRecrute(), HandlePurchase(), HandleMission()]
 
