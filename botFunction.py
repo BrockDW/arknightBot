@@ -70,7 +70,9 @@ class Action:
         try:
             centerPoint = pyautogui.locateCenterOnScreen(imgUrl, confidence=confidenceValue)
             if (centerPoint):
-                pyautogui.click(centerPoint[0], centerPoint[1])
+                pyautogui.mouseDown(button="left", x=centerPoint[0], y=centerPoint[1])
+                time.sleep(1)
+                pyautogui.mouseUp(button="left", x=centerPoint[0], y=centerPoint[1])
                 print(log_format.format(imgUrl, "image clicked"))
             else:
                 print(log_format.format(imgUrl, "button not found, please adjust your screen"))
@@ -603,6 +605,31 @@ class HandleMission(Action):
 
 
 if __name__ == '__main__':
+
+    clicked = False
+    count = 2
+    # while count>0:
+    #     if Action().checkExist("./ff14BotImage/IshgardRestoration/synthesize.jpg",0.8):
+    #         Action().clickOnImg("./ff14BotImage/IshgardRestoration/synthesize.jpg",0.8)
+    #         clicked = False
+    #     if Action().checkExist("./ff14BotImage/IshgardRestoration/quit.jpg", 0.8) and not clicked:
+    #         Action().clickOnImg("./ff14BotImage/IshgardRestoration/70 macro 1.jpg", 0.8)
+    #         time.sleep(30)
+    #         Action().clickOnImg("./ff14BotImage/IshgardRestoration/70 macro 2.jpg", 0.8)
+    #         clicked = True
+    #         count-=1
+    #     time.sleep(5)
+    while count>0:
+        if Action().checkExist("./ff14BotImage/IshgardRestoration/synthesize.jpg",0.7):
+            Action().clickOnImg("./ff14BotImage/IshgardRestoration/synthesize.jpg",0.7)
+            clicked = False
+        if Action().checkExist("./ff14BotImage/IshgardRestoration/quit.jpg", 0.7) and not clicked:
+            Action().clickOnImg("./ff14BotImage/IshgardRestoration/80 macro 1.jpg", 0.7)
+            # time.sleep(30)
+            # Action().clickOnImg("./ff14BotImage/IshgardRestoration/70 macro 2.jpg", 0.8)
+            clicked = True
+            count-=1
+        time.sleep(5)
     # HandleFriend().perform_action()
     #Action().goback()
     #Action().goback()
@@ -612,208 +639,208 @@ if __name__ == '__main__':
     ##Battle().battleControl(10, use_potion, use_stone)
     # ResourceFarm("elite_pass", 3).perform_action()
 
-    use_potion = False
-
-    # HandlePublicRecrute().perform_action()
-    nine_hour_period = datetime.now()
-    tw_hour_period = datetime.now()
-    tf_hour_period = datetime.now()
-    # primaryFarm = ResourceFarm("levelUp", 10)
-    primaryFarm = SSUnderTides("SV-9", 10)
-    # primaryFarm = SSDustWalk("wd-8", 10)
-    action_queue = [primaryFarm, HandleBasement(), HandlePublicRecrute(), HandlePurchase(), HandleMission()]
-
-    while True:
-        try:
-            current_action = action_queue.pop(0)
-            current_action.perform_action()
-            # print(current_action)
-        except Exception:
-            ## do nothing
-            print(log_format.format("error happened", "not working"))
-            time.sleep(60 * 60)
-
-        now = datetime.now()
-        print(log_format.format(str(now.time()), str(nine_hour_period.time()) + ":::"+str(tf_hour_period.time())))
-
-        nine_hour_diff = 0
-        hour = now.time().hour
-        nine_hour = nine_hour_period.time().hour
-        if hour < nine_hour:
-            nine_hour_diff = (24 - nine_hour) + hour
-        else:
-            nine_hour_diff = hour - nine_hour
-
-        if nine_hour_diff >= 9:
-            action_queue.append(HandleBasement())
-            nine_hour_period = now
-
-        tw_hour_diff = 0
-        tw_hour = tw_hour_period.time().hour
-        if hour < tw_hour:
-            tw_hour_diff = (24 - tw_hour) + hour
-        else:
-            tw_hour_diff = hour - tw_hour
-
-        if tw_hour_diff >= 10:
-            action_queue.append(HandlePublicRecrute())
-            action_queue.append(primaryFarm)
-            action_queue.append(HandleMission())
-            action_queue.append(HandleFriend())
-            tw_hour_period = now
-
-
+    # use_potion = False
+    #
+    # # HandlePublicRecrute().perform_action()
+    # nine_hour_period = datetime.now()
+    # tw_hour_period = datetime.now()
+    # tf_hour_period = datetime.now()
+    # # primaryFarm = ResourceFarm("levelUp", 10)
+    # primaryFarm = SSUnderTides("SV-9", 10)
+    # # primaryFarm = SSDustWalk("wd-8", 10)
+    # action_queue = [primaryFarm, HandleBasement(), HandlePublicRecrute(), HandlePurchase(), HandleMission()]
+    #
+    # while True:
+    #     try:
+    #         current_action = action_queue.pop(0)
+    #         current_action.perform_action()
+    #         # print(current_action)
+    #     except Exception:
+    #         ## do nothing
+    #         print(log_format.format("error happened", "not working"))
+    #         time.sleep(60 * 60)
+    #
+    #     now = datetime.now()
+    #     print(log_format.format(str(now.time()), str(nine_hour_period.time()) + ":::"+str(tf_hour_period.time())))
+    #
+    #     nine_hour_diff = 0
+    #     hour = now.time().hour
+    #     nine_hour = nine_hour_period.time().hour
+    #     if hour < nine_hour:
+    #         nine_hour_diff = (24 - nine_hour) + hour
+    #     else:
+    #         nine_hour_diff = hour - nine_hour
+    #
+    #     if nine_hour_diff >= 9:
+    #         action_queue.append(HandleBasement())
+    #         nine_hour_period = now
+    #
+    #     tw_hour_diff = 0
+    #     tw_hour = tw_hour_period.time().hour
+    #     if hour < tw_hour:
+    #         tw_hour_diff = (24 - tw_hour) + hour
+    #     else:
+    #         tw_hour_diff = hour - tw_hour
+    #
+    #     if tw_hour_diff >= 10:
+    #         action_queue.append(HandlePublicRecrute())
+    #         action_queue.append(primaryFarm)
+    #         action_queue.append(HandleMission())
+    #         action_queue.append(HandleFriend())
+    #         tw_hour_period = now
 
 
 
-# baseButtonLocation = pyautogui.locateOnScreen("C:/Users/Brock/OneDrive/Documents/python/arknightBot/venv/Include/botImg/homePage/base.png", confidence = 0.5)
-sleepTime = 6
 
-def waitForImg(imgUrl, waitTime, curConf):
-    counter = 0
-    while (pyautogui.locateCenterOnScreen(imgUrl, confidence=curConf) != None):
-        print(imgUrl + " \t\t\titeration " + str(counter))
-        counter+=1
-        time.sleep(3)
-    print(imgUrl + " \t\t\thas stopped")
-    print()
-
-def clickOnImg(imgUrl, confidenceValue):
-    try:
-        centerPoint = pyautogui.locateCenterOnScreen(imgUrl, confidence = confidenceValue)
-        if(centerPoint):
-            pyautogui.click(centerPoint[0], centerPoint[1])
-        else:
-            print(log_format.format(imgUrl, "button not found, please adjust your screen"))
-            print(imgUrl + "\t\t\tbutton not found, please adjust your screen")
-    except OSError:
-        print(imgUrl + "\t\t\tdid not exists")
-    time.sleep(2)
-
-    waitForImg("./botImg/waitingIcon.png", 5, 0.7)
-    waitForImg("./botImg/battle/endGameCutPic.png", 5, 0.8)
-    waitForImg("./botImg/baseIntro.png", 5, 0.8)
-    print()
-
-def checkExist(imgUrl, confidenceValue):
-    try:
-        centerPoint = pyautogui.locateCenterOnScreen(imgUrl, confidence = confidenceValue)
-        if(centerPoint):
-            return True
-        else:
-            print(imgUrl + "\t\t\t did not exist on screen")
-            return False
-    except OSError:
-        print(imgUrl + "\t\t\tdid not exists")
-        return False
-
-def clickGoBack():
-    clickOnImg("./botImg/goBack.png", 0.8)
-
-
-# clickOnImg("./botImg/homePage/base.png", 0.8)
-# clickOnImg("./botImg/base/baseNotif.png", 0.8)
-# clickOnImg("./botImg/base/collectGroup.png", 0.8)
-# clickOnImg("./botImg/base/tradingGroup.png", 0.8)
-# clickOnImg("./botImg/base/memberManage.png", 0.8)
-
-def click(x, y):
-    pyautogui.click(x, y)
-    time.sleep(1)
-
-def battleControl(times):
-    # logging.info("I am here")
-    while (times > 0):
-        clickOnImg("./botImg/battle/autoPlay.png", 0.8)
-        clickOnImg("./botImg/battle/opStart.png", 0.8)
-        if (checkExist("./botImg/battle/stoneTrade.png", 0.7)):
-            clickOnImg("./botImg/battle/acceptTrade.png", 0.8)
-            clickOnImg("./botImg/battle/opStart.png", 0.8)
-        elif (checkExist("./botImg/battle/potionTrade.png", 0.7)):
-            clickOnImg("./botImg/battle/acceptTrade.png", 0.8)
-            clickOnImg("./botImg/battle/opStart.png", 0.8)
-        if (checkExist("./botImg/battle/killMissionEnd.png", 0.7)):
-            click(10, 10)
-
-        time.sleep(5)
-
-        clickOnImg("./botImg/battle/depart.png", 0.8)
-
-        time.sleep(20)
-
-        waitForImg("./botImg/battle/autoPlayIcon.png", 5, 0.8)
-
-        time.sleep(5)
-
-        if (checkExist("./botImg/battle/missionFailed.png", 0.7)):
-            clickOnImg("./botImg/battle/giveUpMission.png", 0.8)
-            time.sleep(5)
-            clickOnImg("./botImg/battle/missionFailedExit.png", 0.8)
-            time.sleep(5)
-        else:
-            clickOnImg("./botImg/battle/leveledUp.png", 0.8)
-            time.sleep(5)
-            clickOnImg("./botImg/battle/endOfGame.png", 0.8)
-            times -= 1
-
-def resourceFarm(resourceType, times=10):
-    if (resourceType == "levelUp"):
-        clickOnImg("./botImg/battle/levelUp.png", 0.8)
-        time.sleep(5)
-        clickOnImg("./botImg/battle/LS-5.png", 0.8)
-    elif (resourceType == "coin"):
-        clickOnImg("./botImg/battle/coin.png", 0.8)
-        time.sleep(5)
-        clickOnImg("./botImg/battle/CE-5.png", 0.8)
-    elif (resourceType == "baseBuildRecource"):
-        clickOnImg("./botImg/battle/baseBuildRecource.png", 0.8)
-        time.sleep(5)
-
-        clickOnImg("./botImg/battle/SK-5.png", 0.8)
-
-    battleControl(times)
-
-# def materialFarm(chapter, num, times=10):
 #
-
-def chipFarm(chipType, bigChip, times=10):
-    if (chipType == "airDmg"):
-        clickOnImg("./botImg/battle/chips/airDmg.png", 0.8)
-        time.sleep(5)
-        if(bigChip):
-            clickOnImg("./botImg/battle/chips/LS-5.png", 0.8)
-        else:
-            clickOnImg("./botImg/battle/chips/LS-5.png", 0.8)
-
-    elif (chipType == "costAndSupport"):
-        clickOnImg("./botImg/battle/chips/costAndSupport.png", 0.8)
-        time.sleep(5)
-        clickOnImg("./botImg/battle/CE-5.png", 0.8)
-        if (bigChip):
-            clickOnImg("./botImg/battle/chips/LS-5.png", 0.8)
-        else:
-            clickOnImg("./botImg/battle/chips/LS-5.png", 0.8)
-
-    elif (chipType == "groundDmg"):
-        clickOnImg("./botImg/battle/chips/groundDmg.png", 0.8)
-        time.sleep(5)
-        if (bigChip):
-            clickOnImg("./botImg/battle/chips/PR-D-2.png", 0.8)
-        else:
-            clickOnImg("./botImg/battle/chips/PR-D-1.png", 0.8)
-
-    elif (chipType == "defenceAndHeal"):
-        clickOnImg("./botImg/battle/chips/defenceAndHeal.png", 0.8)
-        time.sleep(5)
-        clickOnImg("./botImg/battle/SK-5.png", 0.8)
-        if (bigChip):
-            clickOnImg("./botImg/battle/chips/LS-5.png", 0.8)
-        else:
-            clickOnImg("./botImg/battle/chips/LS-5.png", 0.8)
-
-    battleControl(times)
-
-battleControl(6)
+# # baseButtonLocation = pyautogui.locateOnScreen("C:/Users/Brock/OneDrive/Documents/python/arknightBot/venv/Include/botImg/homePage/base.png", confidence = 0.5)
+# sleepTime = 6
+#
+# def waitForImg(imgUrl, waitTime, curConf):
+#     counter = 0
+#     while (pyautogui.locateCenterOnScreen(imgUrl, confidence=curConf) != None):
+#         print(imgUrl + " \t\t\titeration " + str(counter))
+#         counter+=1
+#         time.sleep(3)
+#     print(imgUrl + " \t\t\thas stopped")
+#     print()
+#
+# def clickOnImg(imgUrl, confidenceValue):
+#     try:
+#         centerPoint = pyautogui.locateCenterOnScreen(imgUrl, confidence = confidenceValue)
+#         if(centerPoint):
+#             pyautogui.click(centerPoint[0], centerPoint[1])
+#         else:
+#             print(log_format.format(imgUrl, "button not found, please adjust your screen"))
+#             print(imgUrl + "\t\t\tbutton not found, please adjust your screen")
+#     except OSError:
+#         print(imgUrl + "\t\t\tdid not exists")
+#     time.sleep(2)
+#
+#     waitForImg("./botImg/waitingIcon.png", 5, 0.7)
+#     waitForImg("./botImg/battle/endGameCutPic.png", 5, 0.8)
+#     waitForImg("./botImg/baseIntro.png", 5, 0.8)
+#     print()
+#
+# def checkExist(imgUrl, confidenceValue):
+#     try:
+#         centerPoint = pyautogui.locateCenterOnScreen(imgUrl, confidence = confidenceValue)
+#         if(centerPoint):
+#             return True
+#         else:
+#             print(imgUrl + "\t\t\t did not exist on screen")
+#             return False
+#     except OSError:
+#         print(imgUrl + "\t\t\tdid not exists")
+#         return False
+#
+# def clickGoBack():
+#     clickOnImg("./botImg/goBack.png", 0.8)
+#
+#
+# # clickOnImg("./botImg/homePage/base.png", 0.8)
+# # clickOnImg("./botImg/base/baseNotif.png", 0.8)
+# # clickOnImg("./botImg/base/collectGroup.png", 0.8)
+# # clickOnImg("./botImg/base/tradingGroup.png", 0.8)
+# # clickOnImg("./botImg/base/memberManage.png", 0.8)
+#
+# def click(x, y):
+#     pyautogui.click(x, y)
+#     time.sleep(1)
+#
+# def battleControl(times):
+#     # logging.info("I am here")
+#     while (times > 0):
+#         clickOnImg("./botImg/battle/autoPlay.png", 0.8)
+#         clickOnImg("./botImg/battle/opStart.png", 0.8)
+#         if (checkExist("./botImg/battle/stoneTrade.png", 0.7)):
+#             clickOnImg("./botImg/battle/acceptTrade.png", 0.8)
+#             clickOnImg("./botImg/battle/opStart.png", 0.8)
+#         elif (checkExist("./botImg/battle/potionTrade.png", 0.7)):
+#             clickOnImg("./botImg/battle/acceptTrade.png", 0.8)
+#             clickOnImg("./botImg/battle/opStart.png", 0.8)
+#         if (checkExist("./botImg/battle/killMissionEnd.png", 0.7)):
+#             click(10, 10)
+#
+#         time.sleep(5)
+#
+#         clickOnImg("./botImg/battle/depart.png", 0.8)
+#
+#         time.sleep(20)
+#
+#         waitForImg("./botImg/battle/autoPlayIcon.png", 5, 0.8)
+#
+#         time.sleep(5)
+#
+#         if (checkExist("./botImg/battle/missionFailed.png", 0.7)):
+#             clickOnImg("./botImg/battle/giveUpMission.png", 0.8)
+#             time.sleep(5)
+#             clickOnImg("./botImg/battle/missionFailedExit.png", 0.8)
+#             time.sleep(5)
+#         else:
+#             clickOnImg("./botImg/battle/leveledUp.png", 0.8)
+#             time.sleep(5)
+#             clickOnImg("./botImg/battle/endOfGame.png", 0.8)
+#             times -= 1
+#
+# def resourceFarm(resourceType, times=10):
+#     if (resourceType == "levelUp"):
+#         clickOnImg("./botImg/battle/levelUp.png", 0.8)
+#         time.sleep(5)
+#         clickOnImg("./botImg/battle/LS-5.png", 0.8)
+#     elif (resourceType == "coin"):
+#         clickOnImg("./botImg/battle/coin.png", 0.8)
+#         time.sleep(5)
+#         clickOnImg("./botImg/battle/CE-5.png", 0.8)
+#     elif (resourceType == "baseBuildRecource"):
+#         clickOnImg("./botImg/battle/baseBuildRecource.png", 0.8)
+#         time.sleep(5)
+#
+#         clickOnImg("./botImg/battle/SK-5.png", 0.8)
+#
+#     battleControl(times)
+#
+# # def materialFarm(chapter, num, times=10):
+# #
+#
+# def chipFarm(chipType, bigChip, times=10):
+#     if (chipType == "airDmg"):
+#         clickOnImg("./botImg/battle/chips/airDmg.png", 0.8)
+#         time.sleep(5)
+#         if(bigChip):
+#             clickOnImg("./botImg/battle/chips/LS-5.png", 0.8)
+#         else:
+#             clickOnImg("./botImg/battle/chips/LS-5.png", 0.8)
+#
+#     elif (chipType == "costAndSupport"):
+#         clickOnImg("./botImg/battle/chips/costAndSupport.png", 0.8)
+#         time.sleep(5)
+#         clickOnImg("./botImg/battle/CE-5.png", 0.8)
+#         if (bigChip):
+#             clickOnImg("./botImg/battle/chips/LS-5.png", 0.8)
+#         else:
+#             clickOnImg("./botImg/battle/chips/LS-5.png", 0.8)
+#
+#     elif (chipType == "groundDmg"):
+#         clickOnImg("./botImg/battle/chips/groundDmg.png", 0.8)
+#         time.sleep(5)
+#         if (bigChip):
+#             clickOnImg("./botImg/battle/chips/PR-D-2.png", 0.8)
+#         else:
+#             clickOnImg("./botImg/battle/chips/PR-D-1.png", 0.8)
+#
+#     elif (chipType == "defenceAndHeal"):
+#         clickOnImg("./botImg/battle/chips/defenceAndHeal.png", 0.8)
+#         time.sleep(5)
+#         clickOnImg("./botImg/battle/SK-5.png", 0.8)
+#         if (bigChip):
+#             clickOnImg("./botImg/battle/chips/LS-5.png", 0.8)
+#         else:
+#             clickOnImg("./botImg/battle/chips/LS-5.png", 0.8)
+#
+#     battleControl(times)
+#
+# battleControl(6)
 
 #
 # clickOnImg("./botImg/battle/material/4-4.png", 0.9)
