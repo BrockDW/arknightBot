@@ -8,7 +8,9 @@ class ChipFarm(Battle):
         # self.times = times
 
     def perform_action(self):
-        self.goback()
+        return super().perform_action(self.local_action)
+
+    def local_action(self):
         self.clickOnImg("./botImg/homePage/battle.png", 0.8)
         self.clickOnImg("./botImg/battle/resourceGain.png", 0.8)
         if (self.chip_type == "mage_sniper"):

@@ -644,7 +644,6 @@ if __name__ == '__main__':
     # HandlePublicRecrute().perform_action()
     # use_potion = True
 
-
     HandlePublicRecrute().perform_action()
     nine_hour_period = datetime.now()
     tw_hour_period = datetime.now()
@@ -652,7 +651,7 @@ if __name__ == '__main__':
     primaryFarm = ResourceFarm("levelUp", 10, use_potion=True)
     # primaryFarm = SSUnderTides("SV-9", 10)
     # primaryFarm = SSDustWalk("wd-8", 10)
-    action_queue = [primaryFarm, HandleBasement(), HandlePublicRecrute(), HandlePurchase(), HandleMission()]
+    action_queue = [Extermination(1), primaryFarm, HandleBasement(), HandlePublicRecrute(), HandlePurchase(), HandleMission()]
     #
     while True:
         try:
@@ -687,10 +686,12 @@ if __name__ == '__main__':
             tw_hour_diff = hour - tw_hour
 
         if tw_hour_diff >= 10:
+            action_queue.append(Extermination(1))
             action_queue.append(HandlePublicRecrute())
             action_queue.append(primaryFarm)
             action_queue.append(HandleMission())
             action_queue.append(HandleFriend())
+            action_queue.append(Extermination())
             tw_hour_period = now
 
 

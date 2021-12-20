@@ -62,4 +62,4 @@ class Battle(Action):
                 self.clickOnImg("./botImg/battle/endOfGame.png", 0.8)
                 time.sleep(self.sleep_radio * 4)
                 self.times -= 1
-        self.check_new_day_update()
+        # self.check_new_day_update()

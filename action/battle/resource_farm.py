@@ -7,6 +7,9 @@ class ResourceFarm(Battle):
         self.battleType = battleType
 
     def perform_action(self):
+        return super().perform_action(self.local_action)
+
+    def local_action(self):
         oktofarm = True
         self.goback()
         self.clickOnImg("./botImg/homePage/battle.png", 0.8)
