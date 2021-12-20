@@ -650,7 +650,7 @@ if __name__ == '__main__':
     # use_potion = False
     # print(HandleBasement().perform_action())
 
-    # Extermination().perform_action()
+    Extermination(1).perform_action()
 
     HandlePublicRecrute().perform_action()
     nine_hour_period = datetime.now()
@@ -698,6 +698,7 @@ if __name__ == '__main__':
             action_queue.append(primaryFarm)
             action_queue.append(HandleMission())
             action_queue.append(HandleFriend())
+            action_queue.append(Extermination())
             tw_hour_period = now
 
 
