@@ -10,7 +10,7 @@ class HandleMission(Action):
         return super().perform_action(self.local_action)
 
     def local_action(self):
-        self.goback()
+        # self.goback()
         self.clickOnImg("./botImg/homePage/mission.png", 0.8)
         time.sleep(self.sleep_radio*2)
         self.clickOnImg("./botImg/homePage/daily_mission.png", 0.8)

@@ -10,7 +10,7 @@ class Extermination(Battle):
         return super().perform_action(self.local_action)
 
     def local_action(self):
-        self.goback()
+        # self.goback()
         self.clickOnImg("./botImg/homePage/battle.png", 0.8)
         self.clickOnImg("./botImg/battle/extermination.png", 0.8)
         time.sleep(self.sleep_radio * 2)

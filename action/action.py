@@ -36,7 +36,7 @@ class Action:
             new_day_action_list = []
         self.new_day_action_list = new_day_action_list
         self.update_failed_action_list = update_failed_action_list
-        self.sleep_radio = 5
+        self.sleep_radio = 0
         pass
 
     # @staticmethod
@@ -79,7 +79,10 @@ class Action:
 
         self.click_img(imgList[-1], confidence)
 
+
+
     def clickOnImg(self, imgUrl, confidenceValue):
+        self.waitForImgAppear(imgUrl, 3, confidenceValue, 3)
         try:
             centerPoint = pyautogui.locateCenterOnScreen(imgUrl, confidence=confidenceValue)
             if (centerPoint):
@@ -95,14 +98,18 @@ class Action:
 
         print()
 
+        self.wait_on()
+        print("*"*starCount)
+
+    def wait_on(self):
         self.waitForImg("./botImg/waitingIcon.png", 5, 0.7)
         self.waitForImg("./botImg/battle/endGameCutPic.png", 5, 0.8)
         self.waitForImg("./botImg/baseIntro.png", 5, 0.8)
+        self.waitForImg("./botImg/battle/autoPlayIcon.png", 5, 0.8)
         self.check_new_day_update()
         self.check_connection_lost()
         self.check_login_failed()
         self.check_battle_failed()
-        print("*"*starCount)
 
     def checkExist(self, imgUrl, confidenceValue):
         try:
@@ -124,6 +131,18 @@ class Action:
             counter += 1
             time.sleep(waitTime)
         print(log_format.format(imgUrl, "has stopped"))
+
+    def waitForImgAppear(self, imgUrl, waitTime, curConf, trial):
+        # counter = 0
+        self.wait_on()
+        while (trial > 0 and pyautogui.locateCenterOnScreen(imgUrl, confidence=curConf) == None):
+            print(log_format.format("still waiting for ", imgUrl))
+            trial = trial - 1
+            time.sleep(waitTime)
+        if pyautogui.locateCenterOnScreen(imgUrl, confidence=curConf) == None:
+            print(log_format.format(imgUrl, "time out, stop waiting"))
+        else:
+            print(log_format.format(imgUrl, "has appeared"))
         # print()
 
     def click_screen(self):

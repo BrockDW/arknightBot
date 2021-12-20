@@ -650,7 +650,7 @@ if __name__ == '__main__':
     # use_potion = False
     # print(HandleBasement().perform_action())
 
-    Extermination(1).perform_action()
+    # Extermination(1).perform_action()
 
     HandlePublicRecrute().perform_action()
     nine_hour_period = datetime.now()
@@ -663,8 +663,9 @@ if __name__ == '__main__':
         try:
             current_action = action_queue.pop(0)
             current_action.perform_action()
-        except Exception:
+        except Exception as e:
             print(log_format.format("error happened", "not working"))
+            print(str(e))
             time.sleep(60 * 60)
 
         now = datetime.now()

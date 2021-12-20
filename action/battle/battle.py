@@ -39,7 +39,7 @@ class Battle(Action):
 
             self.clickOnImg("./botImg/battle/depart.png", 0.8)
 
-            time.sleep(self.sleep_radio * 2)
+            time.sleep((self.sleep_radio + 5) * 2)
 
             self.waitForImg("./botImg/battle/autoPlayIcon.png", 5, 0.8)
 
