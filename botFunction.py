@@ -650,15 +650,16 @@ if __name__ == '__main__':
     tf_hour_period = datetime.now()
     primaryFarm = ResourceFarm("levelUp", 10, use_potion=True)
 
-    action_queue = [primaryFarm, HandleBasement(), HandlePublicRecrute(), HandlePurchase(), HandleMission()]
+    action_queue = [primaryFarm, HandleBasement(), HandlePublicRecrute(),HandleFriend(), HandlePurchase(), HandleMission()]
     
     #
     while True:
         try:
             current_action = action_queue.pop(0)
             current_action.perform_action()
-        except Exception:
+        except Exception as e:
             print(log_format.format("error happened", "not working"))
+            print(str(e))
             time.sleep(60 * 60)
 
         now = datetime.now()

@@ -11,7 +11,7 @@ class ResourceFarm(Battle):
 
     def local_action(self):
         oktofarm = True
-        self.goback()
+        # self.goback()
         self.clickOnImg("./botImg/homePage/battle.png", 0.8)
         self.clickOnImg("./botImg/battle/resourceGain.png", 0.8)
         if (self.battleType == "levelUp"):
