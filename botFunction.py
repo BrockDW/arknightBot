@@ -652,11 +652,13 @@ if __name__ == '__main__':
 
     # Extermination(1).perform_action()
 
-    HandlePublicRecrute().perform_action()
+    # HandlePublicRecrute().perform_action()
+    HandleMission().perform_action()
     nine_hour_period = datetime.now()
     tw_hour_period = datetime.now()
     tf_hour_period = datetime.now()
     primaryFarm = ResourceFarm("levelUp", 10, use_potion=True)
+    HandleMission().perform_action()
     action_queue = [primaryFarm, HandleBasement(), HandlePublicRecrute(), HandlePurchase(), HandleMission()]
     #
     while True:

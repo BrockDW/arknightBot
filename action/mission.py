@@ -14,9 +14,13 @@ class HandleMission(Action):
         self.clickOnImg("./botImg/homePage/mission.png", 0.8)
         time.sleep(self.sleep_radio*2)
         self.clickOnImg("./botImg/homePage/daily_mission.png", 0.8)
-        self.click_mission()
+        self.clickOnImg("./botImg/homePage/mission_complete_all.png", 0.8)
+        self.clickOnImg("./botImg/resource_gain.png", 0.8)
+        # self.click_mission()
         self.clickOnImg("./botImg/homePage/weekly_mission.png", 0.8)
-        self.click_mission()
+        # self.click_mission()
+        self.clickOnImg("./botImg/homePage/mission_complete_all.png", 0.8)
+        self.clickOnImg("./botImg/resource_gain.png", 0.8)
 
 
 

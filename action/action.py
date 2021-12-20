@@ -146,6 +146,7 @@ class Action:
         # print()
 
     def click_screen(self):
+        time.sleep(4)
         pyautogui.click(1900, 10)
 
     def goback(self):
@@ -158,13 +159,19 @@ class Action:
 
         newDayStarted = False
 
-        if (self.checkExist("./botImg/homePage/daily_message.png", 0.8)):
+        if (self.checkExist("./botImg/homePage/daily_message.png", 0.8) or self.checkExist("./botImg/homePage/daily_message_off_select.png", 0.8)):
             print(log_format.format("a new day has started", "performing basic operation"))
             self.clickOnImg("./botImg/closePanel.png", 0.8)
             newDayStarted = True
 
         if self.checkExist("./botImg/homePage/daily_reword.png", 0.8):
             print(log_format.format("no new message today", "reword collected"))
+            self.clickOnImg("./botImg/closePanel.png", 0.8)
+            newDayStarted = True
+
+        if self.checkExist("./botImg/homePage/daily_reword_auto_trigger.png", 0.8):
+            print(log_format.format("no new message today", "reword collected"))
+            self.click_screen()
             self.clickOnImg("./botImg/closePanel.png", 0.8)
             newDayStarted = True
         # self.clickOnImg("./botImg/supplyIcon.png", 0.8)
