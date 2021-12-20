@@ -20,7 +20,8 @@ class Battle(Action):
                     self.clickOnImg("./botImg/battle/opStart.png", 0.8)
                 else:
                     self.clickOnImg("./botImg/battle/refuse_trade.png", 0.9)
-                    return 0
+                    break
+                    # return 0
 
             elif (self.checkExist("./botImg/battle/potionTrade.png", 0.7)):
                 if self.use_potion:
@@ -28,7 +29,8 @@ class Battle(Action):
                     self.clickOnImg("./botImg/battle/opStart.png", 0.8)
                 else:
                     self.clickOnImg("./botImg/battle/refuse_trade.png", 0.9)
-                    return 0
+                    break
+                    # return 0
 
             if (self.checkExist("./botImg/battle/killMissionEnd.png", 0.7)):
                 self.click_screen()

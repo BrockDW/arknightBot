@@ -649,17 +649,15 @@ if __name__ == '__main__':
     tw_hour_period = datetime.now()
     tf_hour_period = datetime.now()
     primaryFarm = ResourceFarm("levelUp", 10, use_potion=True)
-    # primaryFarm = SSUnderTides("SV-9", 10)
-    # primaryFarm = SSDustWalk("wd-8", 10)
-    action_queue = [Extermination(1), primaryFarm, HandleBasement(), HandlePublicRecrute(), HandlePurchase(), HandleMission()]
+
+    action_queue = [primaryFarm, HandleBasement(), HandlePublicRecrute(), HandlePurchase(), HandleMission()]
+    
     #
     while True:
         try:
             current_action = action_queue.pop(0)
             current_action.perform_action()
-            # print(current_action)
         except Exception:
-            ## do nothing
             print(log_format.format("error happened", "not working"))
             time.sleep(60 * 60)
 
@@ -686,12 +684,11 @@ if __name__ == '__main__':
             tw_hour_diff = hour - tw_hour
 
         if tw_hour_diff >= 10:
-            action_queue.append(Extermination(1))
             action_queue.append(HandlePublicRecrute())
             action_queue.append(primaryFarm)
             action_queue.append(HandleMission())
             action_queue.append(HandleFriend())
-            action_queue.append(Extermination())
+            action_queue.append(Extermination(1))
             tw_hour_period = now
 
 
