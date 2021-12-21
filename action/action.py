@@ -28,8 +28,8 @@ double_five_star = {
 
 trible_five_star = ["shuchu", "ycw", "js"]
 
-trial_default = 3
-wait_time_default = 5
+trial_default = 1
+wait_time_default = 0
 
 class Action:
     def __init__(self, new_day_action_list=None, update_failed_action_list=None):
@@ -118,7 +118,7 @@ class Action:
             self.check_login_failed()
             self.check_battle_failed()
 
-    def checkExist(self, imgUrl, confidenceValue, trial = trial_default, wait_time = wait_time_default):
+    def checkExist(self, imgUrl, confidenceValue, trial = 1, wait_time = 0):
         try:
             while trial > 0:
                 centerPoint = pyautogui.locateCenterOnScreen(imgUrl, confidence=confidenceValue)
@@ -195,7 +195,7 @@ class Action:
             # HandlePurchase().perform_action()
 
     def special_case_click(self, case_img, confirm_img):
-        if self.checkExist(case_img, 0.8):
+        if self.checkExist(case_img, 0.8, trial_default, wait_time_default):
             centerPoint = pyautogui.locateCenterOnScreen(confirm_img, confidence=0.8)
             if (centerPoint):
                 pyautogui.click(centerPoint[0], centerPoint[1])
