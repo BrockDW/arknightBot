@@ -28,6 +28,9 @@ double_five_star = {
 
 trible_five_star = ["shuchu", "ycw", "js"]
 
+trial_default = 3
+wait_time_default = 5
+
 class Action:
     def __init__(self, new_day_action_list=None, update_failed_action_list=None):
         if update_failed_action_list is None:
@@ -37,6 +40,7 @@ class Action:
         self.new_day_action_list = new_day_action_list
         self.update_failed_action_list = update_failed_action_list
         self.sleep_radio = 0
+        self.check_update = False
         pass
 
     # @staticmethod
@@ -82,7 +86,7 @@ class Action:
 
 
     def clickOnImg(self, imgUrl, confidenceValue):
-        self.waitForImgAppear(imgUrl, 3, confidenceValue, 3)
+        self.waitForImgAppear(imgUrl, confidenceValue)
         try:
             centerPoint = pyautogui.locateCenterOnScreen(imgUrl, confidence=confidenceValue)
             if (centerPoint):
@@ -90,6 +94,7 @@ class Action:
                 time.sleep(1)
                 pyautogui.mouseUp(button="left", x=centerPoint[0], y=centerPoint[1])
                 print(log_format.format(imgUrl, "image clicked"))
+                self.check_update = True
             else:
                 print(log_format.format(imgUrl, "button not found, please adjust your screen"))
         except OSError:
@@ -106,20 +111,25 @@ class Action:
         self.waitForImg("./botImg/battle/endGameCutPic.png", 5, 0.8)
         self.waitForImg("./botImg/baseIntro.png", 5, 0.8)
         self.waitForImg("./botImg/battle/autoPlayIcon.png", 5, 0.8)
-        self.check_new_day_update()
-        self.check_connection_lost()
-        self.check_login_failed()
-        self.check_battle_failed()
+        if self.check_update:
+            self.check_update = False
+            self.check_new_day_update()
+            self.check_connection_lost()
+            self.check_login_failed()
+            self.check_battle_failed()
 
-    def checkExist(self, imgUrl, confidenceValue):
+    def checkExist(self, imgUrl, confidenceValue, trial = trial_default, wait_time = wait_time_default):
         try:
-            centerPoint = pyautogui.locateCenterOnScreen(imgUrl, confidence=confidenceValue)
-            if (centerPoint):
-                print(log_format.format(imgUrl, "exist on screen"))
-                return True
-            else:
-                print(log_format.format(imgUrl, "did not exist on screen"))
-                return False
+            while trial > 0:
+                centerPoint = pyautogui.locateCenterOnScreen(imgUrl, confidence=confidenceValue)
+                if (centerPoint):
+                    print(log_format.format(imgUrl, "exist on screen"))
+                    return True
+                else:
+                    print(log_format.format(imgUrl, "did not exist on screen"))
+                    trial -= 1
+                time.sleep(wait_time)
+            return False
         except OSError:
             print(log_format.format(imgUrl, "image file did not exists"))
             return False
@@ -132,7 +142,7 @@ class Action:
             time.sleep(waitTime)
         print(log_format.format(imgUrl, "has stopped"))
 
-    def waitForImgAppear(self, imgUrl, waitTime, curConf, trial):
+    def waitForImgAppear(self, imgUrl, curConf, trial=trial_default, waitTime = wait_time_default):
         # counter = 0
         self.wait_on()
         while (trial > 0 and pyautogui.locateCenterOnScreen(imgUrl, confidence=curConf) == None):
@@ -192,6 +202,7 @@ class Action:
                 print(log_format.format(confirm_img, "image clicked"))
                 time.sleep(self.sleep_radio*20)
                 go_back_result = self.goback()
+                self.check_update=True
                 # if go_back_result is True:
                 #     return 1
             else:
@@ -204,6 +215,7 @@ class Action:
         time.sleep(self.sleep_radio*2)
         update_confirm = self.special_case_click("./botImg/updated.png", "./botImg/confirm.png")
         update_failed_confirm = self.special_case_click("./botImg/update_failed.png", "./botImg/confirm.png")
+
         return update_failed_confirm
         # if self.checkExist("./botImg/updated.png", 0.8):
         #     self.clickOnImg("./botImg/confirm.png", 0.8)

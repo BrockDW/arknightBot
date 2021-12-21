@@ -611,6 +611,7 @@ from action.basement import HandleBasement
 from action.purchase import HandlePurchase
 from action.mission import HandleMission
 from action.battle.extermination import Extermination
+from action.side_story.fxgj.fxgj_resource_farm import FXGJResourceFarm
 
 if __name__ == '__main__':
 
@@ -653,6 +654,7 @@ if __name__ == '__main__':
     # Extermination(1).perform_action()
 
     # HandlePublicRecrute().perform_action()
+    FXGJResourceFarm("BI-7", 10).perform_action()
     HandleMission().perform_action()
     nine_hour_period = datetime.now()
     tw_hour_period = datetime.now()
