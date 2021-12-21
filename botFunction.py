@@ -611,6 +611,7 @@ from action.basement import HandleBasement
 from action.purchase import HandlePurchase
 from action.mission import HandleMission
 from action.battle.extermination import Extermination
+from action.side_story.fxgj.fxgj_resource_farm import FXGJResourceFarm
 
 if __name__ == '__main__':
 
@@ -644,10 +645,21 @@ if __name__ == '__main__':
     # HandlePublicRecrute().perform_action()
     # use_potion = True
 
+    #Battle().battleControl(10, use_potion, use_stone)
+    # ResourceFarm("elite_pass", 3).perform_action()
+
+    # use_potion = False
+    # print(HandleBasement().perform_action())
+
+    # Extermination(1).perform_action()
+
+    # HandlePublicRecrute().perform_action()
+    # FXGJResourceFarm("BI-7", 10).perform_action()
     nine_hour_period = datetime.now()
     tw_hour_period = datetime.now()
     tf_hour_period = datetime.now()
-    primaryFarm = ResourceFarm("levelUp", 10, use_potion=True)
+    # primaryFarm = ResourceFarm("levelUp", 10, use_potion=True)
+    primaryFarm = FXGJResourceFarm("BI-7", 10)
     action_queue = [primaryFarm, HandleBasement(), HandlePublicRecrute(), HandlePurchase(), HandleMission()]
     #
     while True:
@@ -686,7 +698,7 @@ if __name__ == '__main__':
             action_queue.append(primaryFarm)
             action_queue.append(HandleMission())
             action_queue.append(HandleFriend())
-            action_queue.append(Extermination(1))
+            #action_queue.append(Extermination(1))
             tw_hour_period = now
 
 
