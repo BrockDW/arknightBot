@@ -2,8 +2,8 @@ from action.battle.battle import Battle
 import time
 
 class Extermination(Battle):
-    def __init__(self, times, use_potion=False, use_stone=False):
-        super().__init__(times, use_potion, use_stone)
+    def __init__(self, use_potion=False, use_stone=False):
+        super().__init__(1, use_potion, use_stone)
         pass
 
     def perform_action(self):
