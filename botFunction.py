@@ -644,14 +644,11 @@ if __name__ == '__main__':
     # HandlePublicRecrute().perform_action()
     # use_potion = True
 
-    HandlePublicRecrute().perform_action()
     nine_hour_period = datetime.now()
     tw_hour_period = datetime.now()
     tf_hour_period = datetime.now()
     primaryFarm = ResourceFarm("levelUp", 10, use_potion=True)
-
-    action_queue = [primaryFarm, HandleBasement(), HandlePublicRecrute(),HandleFriend(), HandlePurchase(), HandleMission()]
-    
+    action_queue = [primaryFarm, HandleBasement(), HandlePublicRecrute(), HandlePurchase(), HandleMission()]
     #
     while True:
         try:
