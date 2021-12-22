@@ -20,6 +20,7 @@ class Battle(Action):
                     self.clickOnImg("./botImg/battle/opStart.png", 0.8)
                 else:
                     self.clickOnImg("./botImg/battle/refuse_trade.png", 0.9)
+                    print("refuse stone trade")
                     break
                     # return 0
 
@@ -29,6 +30,7 @@ class Battle(Action):
                     self.clickOnImg("./botImg/battle/opStart.png", 0.8)
                 else:
                     self.clickOnImg("./botImg/battle/refuse_trade.png", 0.9)
+                    print("refuse potion trade")
                     break
                     # return 0
 
