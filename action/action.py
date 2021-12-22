@@ -28,8 +28,8 @@ double_five_star = {
 
 trible_five_star = ["shuchu", "ycw", "js"]
 
-trial_default = 3
-wait_time_default = 3
+trial_default = 1
+wait_time_default = 0
 
 class Action:
     def __init__(self, new_day_action_list=None, update_failed_action_list=None):
