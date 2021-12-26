@@ -12,6 +12,9 @@ class Battle(Action):
     def battleControl(self):
         # logging.info("I am here")
         while (self.times > 0):
+            if self.checkExist("./botImg/homePage/battle.png", 0.8, 2, 1):
+                self.instruction()
+                break
             self.clickOnImg("./botImg/battle/autoPlay.png", 0.8)
             self.clickOnImg("./botImg/battle/opStart.png", 0.8)
             if (self.checkExist("./botImg/battle/stoneTrade.png", 0.7)):

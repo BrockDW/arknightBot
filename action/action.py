@@ -28,8 +28,8 @@ double_five_star = {
 
 trible_five_star = ["shuchu", "ycw", "js"]
 
-trial_default = 1
-wait_time_default = 0
+trial_default = 2
+wait_time_default = 1
 
 class Action:
     def __init__(self, new_day_action_list=None, update_failed_action_list=None):
@@ -41,6 +41,7 @@ class Action:
         self.update_failed_action_list = update_failed_action_list
         self.sleep_radio = 0
         self.check_update = False
+        self.instruction = None
         pass
 
     # @staticmethod
@@ -50,6 +51,7 @@ class Action:
     # #     action.perform_action()
 
     def perform_action(self, instruction):
+        self.instruction = instruction
         if self.goback():
             return True
         
@@ -186,6 +188,8 @@ class Action:
             newDayStarted = True
         # self.clickOnImg("./botImg/supplyIcon.png", 0.8)
         # self.clickOnImg("./botImg/closePanelSecond.png", 0.8)
+        if newDayStarted:
+            self.instruction()
         return newDayStarted
             # for action in self.new_day_action_list:
             #     action.perform_action()

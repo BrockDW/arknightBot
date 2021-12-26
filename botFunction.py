@@ -612,6 +612,7 @@ from action.purchase import HandlePurchase
 from action.mission import HandleMission
 from action.battle.extermination import Extermination
 from action.side_story.fxgj.fxgj_resource_farm import FXGJResourceFarm
+from action.battle.battle import Battle
 
 if __name__ == '__main__':
 
@@ -656,6 +657,9 @@ if __name__ == '__main__':
     # HandlePublicRecrute().perform_action()
     # FXGJResourceFarm("BI-7", 10).perform_action()
     # Extermination().perform_action()
+
+    # Battle(4, use_stone=True).battleControl()
+
     nine_hour_period = datetime.now()
     tw_hour_period = datetime.now()
     tf_hour_period = datetime.now()
@@ -699,7 +703,7 @@ if __name__ == '__main__':
             action_queue.append(FXGJResourceFarm("BI-8", 10))
             action_queue.append(HandleMission())
             action_queue.append(HandleFriend())
-            #action_queue.append(Extermination(1))
+            action_queue.append(Extermination(1))
             tw_hour_period = now
 
 
