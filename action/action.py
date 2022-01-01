@@ -28,11 +28,11 @@ double_five_star = {
 
 trible_five_star = ["shuchu", "ycw", "js"]
 
-trial_default = 2
-wait_time_default = 1
+trial_default = 3
+wait_time_default = 3
 
 class Action:
-    def __init__(self, new_day_action_list=None, update_failed_action_list=None):
+    def __init__(self, new_day_action_list=None, update_failed_action_list=None, confidenceValue = 0.8):
         if update_failed_action_list is None:
             update_failed_action_list = []
         if new_day_action_list is None:
@@ -42,6 +42,7 @@ class Action:
         self.sleep_radio = 0
         self.check_update = False
         self.instruction = None
+        self.confidenceValue = confidenceValue
         pass
 
     # @staticmethod
@@ -119,6 +120,7 @@ class Action:
             self.check_connection_lost()
             self.check_login_failed()
             self.check_battle_failed()
+        self.special_case_click_simplify()
 
     def checkExist(self, imgUrl, confidenceValue, trial = 1, wait_time = 0):
         try:
@@ -214,6 +216,23 @@ class Action:
             return True
         else:
             return False
+
+    def special_case_click_simplify(self):
+        centerPoint = pyautogui.locateCenterOnScreen("./botImg/closePanel.png", confidence=0.8)
+        if (centerPoint):
+            pyautogui.click(centerPoint[0], centerPoint[1])
+            print(log_format.format("./botImg/closePanel.png", "image clicked"))
+            time.sleep(self.sleep_radio*20)
+            go_back_result = self.goback()
+            self.check_update=True
+
+        centerPoint = pyautogui.locateCenterOnScreen("./botImg/connection_lost_confirm.png", confidence=0.8)
+        if (centerPoint):
+            pyautogui.click(centerPoint[0], centerPoint[1])
+            print(log_format.format("./botImg/connection_lost_confirm.png", "image clicked"))
+            time.sleep((self.sleep_radio + 2) * 20)
+            go_back_result = self.goback()
+            self.check_update = True
 
     def check_new_day_update(self):
         time.sleep(self.sleep_radio*2)

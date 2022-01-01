@@ -2,8 +2,8 @@ from action.action import Action
 import time
 
 class Battle(Action):
-    def __init__(self, times, use_potion=False, use_stone=False):
-        super().__init__()
+    def __init__(self, times, use_potion=False, use_stone=False, confidenceValue=0.8):
+        super().__init__(confidenceValue=confidenceValue)
         self.use_potion = use_potion
         self.use_stone = use_stone
         self.times = times
