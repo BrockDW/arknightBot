@@ -18,9 +18,11 @@ if __name__ == '__main__':
     nine_hour_period = datetime.now()
     tw_hour_period = datetime.now()
     tf_hour_period = datetime.now()
-    # primaryFarm = ResourceFarm("levelUp", 10, use_potion=True)
-    primaryFarm = FXGJResourceFarm("BI-8", 30, use_potion=True, confidenceValue=0.8)
-    action_queue = [primaryFarm, HandleBasement(), HandlePublicRecrute(), HandlePurchase(), HandleMission(), HandleFriend()]
+    primaryFarm = ResourceFarm("levelUp", 10, use_potion=False)
+    # primaryFarm = FXGJResourceFarm("BI-7", 30, use_stone=False, confidenceValue=0.8)
+    action_queue = [
+        primaryFarm,
+        HandleBasement(), HandlePublicRecrute(), HandleFriend(), HandlePurchase(), HandleMission()]
     #
     while True:
         try:
@@ -55,7 +57,7 @@ if __name__ == '__main__':
 
         if tw_hour_diff >= 10:
             action_queue.append(HandlePublicRecrute())
-            action_queue.append(FXGJResourceFarm("BI-8", 10))
+            action_queue.append(ResourceFarm("levelUp", 10, use_potion=False))
             action_queue.append(HandleMission())
             action_queue.append(HandleFriend())
             action_queue.append(Extermination(1))

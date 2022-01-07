@@ -28,11 +28,11 @@ class HandlePurchase(Action):
 
     def continue_purchase(self, image_url):
         i = 0
-        while (self.checkExist(image_url, 0.8) and i < 3):
-            self.clickOnImg(image_url, 0.8)
-            self.clickOnImg("./botImg/homePage/confirm_purchase.png", 0.8)
+        while (self.checkExist(image_url, 0.7) and i < 3):
+            self.clickOnImg(image_url, 0.7)
+            self.clickOnImg("./botImg/homePage/confirm_purchase.png", 0.7)
 
-            if self.checkExist("./botImage/homePage/not_enough_credit.png", 0.8):
+            if self.checkExist("./botImage/homePage/not_enough_credit.png", 0.7):
                 print(log_format.format("not enough credit", "the purchase will stop"))
                 break
             self.click_screen()

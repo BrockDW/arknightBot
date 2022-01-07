@@ -22,3 +22,7 @@ class Extermination(Battle):
         # self.clickOnImg("./botImg/battle/extermination_progress.png", 0.8)
 
         self.battleControl()
+
+        time.sleep((self.sleep_radio + 3) * 6)
+        self.click_screen()
+        time.sleep((self.sleep_radio + 3) * 6)

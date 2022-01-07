@@ -149,7 +149,12 @@ class Action:
     def waitForImgAppear(self, imgUrl, curConf, trial=trial_default, waitTime = wait_time_default):
         # counter = 0
         self.wait_on()
-        while (trial > 0 and pyautogui.locateCenterOnScreen(imgUrl, confidence=curConf) == None):
+        while (trial > 0):
+            if pyautogui.locateCenterOnScreen(imgUrl, confidence=curConf) == None:
+                print(log_format.format(imgUrl, "time out, stop waiting"))
+            else:
+                print(log_format.format(imgUrl, "has appeared"))
+                return 0
             print(log_format.format("still waiting for ", imgUrl))
             trial = trial - 1
             time.sleep(waitTime)
