@@ -4,6 +4,7 @@ import time
 class Extermination(Battle):
     def __init__(self, use_potion=False, use_stone=False):
         super().__init__(1, use_potion, use_stone)
+        self.sleep_radio = 5
         pass
 
     def perform_action(self):

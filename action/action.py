@@ -196,7 +196,8 @@ class Action:
         # self.clickOnImg("./botImg/supplyIcon.png", 0.8)
         # self.clickOnImg("./botImg/closePanelSecond.png", 0.8)
         if newDayStarted:
-            self.instruction()
+            time.sleep(10)
+            # self.instruction()
         return newDayStarted
             # for action in self.new_day_action_list:
             #     action.perform_action()
@@ -211,8 +212,9 @@ class Action:
             if (centerPoint):
                 pyautogui.click(centerPoint[0], centerPoint[1])
                 print(log_format.format(confirm_img, "image clicked"))
-                time.sleep(self.sleep_radio*20)
+                time.sleep((self.sleep_radio + 1) * 20)
                 go_back_result = self.goback()
+                self.instruction()
                 self.check_update=True
                 # if go_back_result is True:
                 #     return 1
@@ -227,8 +229,9 @@ class Action:
         if (centerPoint):
             pyautogui.click(centerPoint[0], centerPoint[1])
             print(log_format.format("./botImg/closePanel.png", "image clicked"))
-            time.sleep(self.sleep_radio*20)
+            time.sleep((self.sleep_radio + 2) * 20)
             go_back_result = self.goback()
+            self.instruction()
             self.check_update=True
 
         centerPoint = pyautogui.locateCenterOnScreen("./botImg/connection_lost_confirm.png", confidence=0.8)
@@ -237,6 +240,7 @@ class Action:
             print(log_format.format("./botImg/connection_lost_confirm.png", "image clicked"))
             time.sleep((self.sleep_radio + 2) * 20)
             go_back_result = self.goback()
+            self.instruction()
             self.check_update = True
 
     def check_new_day_update(self):
