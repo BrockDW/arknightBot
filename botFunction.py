@@ -20,7 +20,9 @@ if __name__ == '__main__':
     nine_hour_period = datetime.now()
     tw_hour_period = datetime.now()
     tf_hour_period = datetime.now()
+    
     primaryFarm = ResourceFarm("levelUp", 10, use_potion=False)
+    HandlePublicRecrute().perform_action()
     # primaryFarm = FXGJResourceFarm("BI-7", 30, use_stone=False, confidenceValue=0.8)
     action_queue = [
         primaryFarm,
@@ -35,6 +37,7 @@ if __name__ == '__main__':
             current_action = action_queue.pop(0)
             current_action.perform_action()
         except Exception as e:
+            Action().goback()
             print(log_format.format("error happened", "not working"))
             print(str(e))
             time.sleep(60 * 60)
@@ -62,9 +65,10 @@ if __name__ == '__main__':
             tw_hour_diff = hour - tw_hour
 
         if tw_hour_diff >= 10:
+            action_queue.append(Extermination(1))
             action_queue.append(HandlePublicRecrute())
             action_queue.append(ResourceFarm("levelUp", 10, use_potion=False))
             action_queue.append(HandleMission())
             action_queue.append(HandleFriend())
-            action_queue.append(Extermination(1))
+            
             tw_hour_period = now
