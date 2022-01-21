@@ -6,6 +6,7 @@ class ResourceFarm(Battle):
         super().__init__(times, use_potion, use_stone)
         self.battleType = battleType
 
+
     def perform_action(self):
         return super().perform_action(self.local_action)
 
@@ -13,7 +14,7 @@ class ResourceFarm(Battle):
         oktofarm = True
         # self.goback()
         self.clickOnImg("./botImg/homePage/battle.png", 0.8)
-        self.clickOnImg("./botImg/battle/resourceGain.png", 0.8)
+        self.clickOnImg("./botImg/battle/resourceGain.png", 0.9)
         if (self.battleType == "levelUp"):
             self.clickOnImg("./botImg/battle/levelUp.png", 0.8)
             time.sleep(self.sleep_radio*2)
