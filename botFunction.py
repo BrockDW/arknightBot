@@ -15,6 +15,8 @@ from action.battle.battle import Battle
 
 if __name__ == '__main__':
 
+    # Battle(8, use_potion=True).battleControl()
+
     nine_hour_period = datetime.now()
     tw_hour_period = datetime.now()
     tf_hour_period = datetime.now()
@@ -22,7 +24,11 @@ if __name__ == '__main__':
     # primaryFarm = FXGJResourceFarm("BI-7", 30, use_stone=False, confidenceValue=0.8)
     action_queue = [
         primaryFarm,
-        HandleBasement(), HandlePublicRecrute(), HandleFriend(), HandlePurchase(), HandleMission()]
+        HandleBasement(),
+        HandlePublicRecrute(),
+        HandleFriend(),
+        HandlePurchase(),
+        HandleMission()]
     #
     while True:
         try:
