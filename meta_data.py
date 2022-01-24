@@ -1,11 +1,11 @@
 log_format = "{:>40} -- {:>10}"
 starCount = 100
-sleep_radio = 2
 single_four_star = ["zy", "xr", "wy", "ksfh", "tzgy"]
 double_four_star = {
-    "js": ["qg", "jwgy", "jjgy", "ssgy", "shuchu","jzw"],
-    "sc": ["jjgy", "ycw"],
-    "zl": ["xfgy", "fyhf"]
+    "js": ["qg", "jwgy", "jjgy", "ssgy", "shuchu","jzw", "zl"],
+    "sc": ["jjgy", "ycw", "zzgy", "fh"],
+    "zl": ["xfgy", "ssgy"],
+    "jwgy": ["fh"]
 }
 single_five_star = ["zh", "bf", "kc"]
 double_five_star = {
@@ -20,3 +20,6 @@ double_five_star = {
 }
 
 trible_five_star = ["shuchu", "ycw", "js"]
+
+trial_default = 3
+wait_time_default = 3

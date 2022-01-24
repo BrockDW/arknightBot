@@ -5,32 +5,13 @@ import time
 from os import listdir
 from os.path import isfile, join
 
-log_format = "{:>40} -- {:>10}"
-starCount = 100
-sleep_radio = 2
-single_four_star = ["zy", "xr", "wy", "ksfh", "tzgy"]
-double_four_star = {
-    "js": ["qg", "jwgy", "jjgy", "ssgy", "shuchu","jzw"],
-    "sc": ["jjgy", "ycw"],
-    "zl": ["xfgy", "fyhf"]
-}
-single_five_star = ["zh", "bf", "kc"]
-double_five_star = {
-    "qg": ["xr"],
-    "wy": ["shuchu", "zzgy", "fh"],
-    "sc": ["zzgy", "fh", "tzgy"],
-    "xr": ["fzgy"],
-    "zy": ["xfgy", "fyhf", "ycw", "ylgy", "zl"],
-    "shuchu": ["zl", "fzgy", "tzgy", "zzgy"],
-    "kc": ["xfgy", "fyhf", "tzgy", "ksfh", "fzgy", "js"],
-    "fh": ["shuchu", "jwgy"]
-}
-
-trible_five_star = ["shuchu", "ycw", "js"]
-
-use_potion = False
-use_stone = False
-
+from meta_data import \
+    log_format, \
+    single_five_star, \
+    single_four_star, \
+    double_five_star, \
+    double_four_star, \
+    trible_five_star
 
 class HandlePublicRecrute(Action):
     def __init__(self):
@@ -46,7 +27,7 @@ class HandlePublicRecrute(Action):
             self.clickOnImg("./botImg/homePage/recrute_confirm.png", 0.8)
             self.clickOnImg("./botImg/draw_confirm.png", 0.8)
             pyautogui.click(50, 50)
-            time.sleep(sleep_radio*2)
+            time.sleep(self.sleep_radio*2)
 
         tag_path = "./botImg/recrute_tag"
         onlyfiles = [f for f in listdir(tag_path) if isfile(join(tag_path, f))]
@@ -56,7 +37,7 @@ class HandlePublicRecrute(Action):
             cur_tag_list = []
             self.clickOnImg("./botImg/homePage/begin_new_recrute.png", 0.8)
             for file in onlyfiles:
-                if self.checkExist(tag_path + "/"+file, 0.9):
+                if self.checkExist(tag_path + "/"+file, 0.9, 1, 0):
                     cur_tag_list.append(file.split(".")[0])
 
             print(log_format.format("available tags", str(cur_tag_list)))
@@ -106,4 +87,4 @@ class HandlePublicRecrute(Action):
             self.clickOnImg("./botImg/recrute_tag/"+tag+".png", 0.8)
         self.clickOnImg("./botImg/maximum_recrute.png", 0.8)
         self.clickOnImg("./botImg/recrute_confirm.png", 0.8)
-        time.sleep(sleep_radio)
+        time.sleep(self.sleep_radio)

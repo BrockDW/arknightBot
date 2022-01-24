@@ -27,3 +27,7 @@ class Extermination(Battle):
         time.sleep((self.sleep_radio + 3) * 6)
         self.click_screen()
         time.sleep((self.sleep_radio + 3) * 6)
+
+        time.sleep((self.sleep_radio + 3) * 6)
+        self.click_screen()
+        time.sleep((self.sleep_radio + 3) * 6)

@@ -38,7 +38,7 @@ if __name__ == '__main__':
             current_action.perform_action()
         except Exception as e:
             Action().goback()
-            print(log_format.format("error happened", "not working"))
+            print(log_format.format("error happened", str(e)))
             print(str(e))
             time.sleep(60 * 60)
 
