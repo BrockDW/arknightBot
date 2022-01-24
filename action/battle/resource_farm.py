@@ -32,7 +32,5 @@ class ResourceFarm(Battle):
                 self.clickOnImg("./botImg/battle/AP-5.png", 0.8)
             else:
                 oktofarm = False
-
-            # self.clickOnImg("./botImg/battle/SK-5.png", 0.8)
         if oktofarm:
             self.battleControl()

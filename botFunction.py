@@ -10,20 +10,15 @@ from action.basement import HandleBasement
 from action.purchase import HandlePurchase
 from action.mission import HandleMission
 from action.battle.extermination import Extermination
-from action.side_story.fxgj.fxgj_resource_farm import FXGJResourceFarm
-from action.battle.battle import Battle
 
 if __name__ == '__main__':
-
-    # Battle(8, use_potion=True).battleControl()
-
     nine_hour_period = datetime.now()
     tw_hour_period = datetime.now()
     tf_hour_period = datetime.now()
+
+    Action().try_click((1100, 1000), "./botImg/battle/levelUp.png")
     
     primaryFarm = ResourceFarm("levelUp", 10, use_potion=False)
-    HandlePublicRecrute().perform_action()
-    # primaryFarm = FXGJResourceFarm("BI-7", 30, use_stone=False, confidenceValue=0.8)
     action_queue = [
         primaryFarm,
         HandleBasement(),
@@ -65,10 +60,11 @@ if __name__ == '__main__':
             tw_hour_diff = hour - tw_hour
 
         if tw_hour_diff >= 10:
+            tw_hour_period = now
             action_queue.append(Extermination(1))
             action_queue.append(HandlePublicRecrute())
             action_queue.append(ResourceFarm("levelUp", 10, use_potion=False))
             action_queue.append(HandleMission())
             action_queue.append(HandleFriend())
             
-            tw_hour_period = now
+

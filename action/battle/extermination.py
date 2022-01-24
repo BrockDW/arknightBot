@@ -18,9 +18,7 @@ class Extermination(Battle):
         self.click_screen()
         time.sleep((self.sleep_radio + 3) * 2)
         self.clickOnImg("./botImg/battle/switch_extermination.png", 0.8)
-        # self.clickOnImg("./botImg/battle/dragon_door.png", 0.8)
         self.clickOnImg("./botImg/battle/dragon_door_city_switch.png", 0.8)
-        # self.clickOnImg("./botImg/battle/extermination_progress.png", 0.8)
 
         self.battleControl()
 

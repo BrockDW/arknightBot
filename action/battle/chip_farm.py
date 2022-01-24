@@ -5,7 +5,6 @@ class ChipFarm(Battle):
     def __init__(self, chip_type, times, use_potion=False, use_stone=False):
         super().__init__(times, use_potion, use_stone)
         self.chip_type = chip_type
-        # self.times = times
 
     def perform_action(self):
         return super().perform_action(self.local_action)

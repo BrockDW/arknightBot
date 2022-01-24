@@ -38,9 +38,7 @@ class Action:
         try:
             centerPoint = pyautogui.locateCenterOnScreen(imgUrl, confidence=confidenceValue)
             if (centerPoint):
-                pyautogui.mouseDown(button="left", x=centerPoint[0], y=centerPoint[1])
-                time.sleep(1)
-                pyautogui.mouseUp(button="left", x=centerPoint[0], y=centerPoint[1])
+                self.click_on_position(centerPoint)
                 print(log_format.format(imgUrl, "image clicked"))
                 self.check_update = True
             else:
@@ -50,6 +48,17 @@ class Action:
         time.sleep(self.sleep_radio*2)
         print("\n")
         print("*"*starCount)
+
+    def click_on_position(self, position):
+        pyautogui.mouseDown(button="left", x=position[0], y=position[1])
+        time.sleep(1)
+        pyautogui.mouseUp(button="left", x=position[0], y=position[1])
+
+    def try_click(self, position, url):
+        while not self.checkExist(url, 0.8):
+            pyautogui.mouseDown(button="left", x=position[0], y=position[1])
+            time.sleep(1)
+            pyautogui.mouseUp(button="left", x=position[0], y=position[1])
 
     def wait_on(self):
         self.waitForImg("./botImg/waitingIcon.png", 5, 0.6)
@@ -105,7 +114,7 @@ class Action:
 
     def click_screen(self):
         time.sleep(4)
-        pyautogui.click(1900, 10)
+        self.click_on_position((1900, 10))
 
     def goback(self):
         # time.sleep(30)
@@ -142,7 +151,7 @@ class Action:
         if self.checkExist(case_img, 0.8):
             centerPoint = pyautogui.locateCenterOnScreen(confirm_img, confidence=0.8)
             if (centerPoint):
-                pyautogui.click(centerPoint[0], centerPoint[1])
+                self.click_on_position(centerPoint)
                 print(log_format.format(confirm_img, "image clicked"))
                 time.sleep((self.sleep_radio + 2) * 20)
                 go_back_result = self.goback()
@@ -158,7 +167,7 @@ class Action:
         if self.checkExist("./botImg/closePanel.png", 0.8):
             centerPoint = pyautogui.locateCenterOnScreen("./botImg/closePanel.png", confidence=0.8)
             if (centerPoint):
-                pyautogui.click(centerPoint[0], centerPoint[1])
+                self.click_on_position(centerPoint)
                 print(log_format.format("./botImg/closePanel.png", "image clicked"))
                 time.sleep((self.sleep_radio + 2) * 20)
                 go_back_result = self.goback()
@@ -168,7 +177,7 @@ class Action:
         if self.checkExist("./botImg/connection_lost_confirm.png", 0.8):
             centerPoint = pyautogui.locateCenterOnScreen("./botImg/connection_lost_confirm.png", confidence=0.8)
             if (centerPoint):
-                pyautogui.click(centerPoint[0], centerPoint[1])
+                self.click_on_position(centerPoint)
                 print(log_format.format("./botImg/connection_lost_confirm.png", "image clicked"))
                 time.sleep((self.sleep_radio + 2) * 20)
                 go_back_result = self.goback()
