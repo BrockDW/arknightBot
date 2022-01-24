@@ -16,7 +16,7 @@ if __name__ == '__main__':
     tw_hour_period = datetime.now()
     tf_hour_period = datetime.now()
 
-    Action().try_click((1100, 1000), "./botImg/battle/levelUp.png")
+    # Action().try_click((1100, 1000), "./botImg/battle/levelUp.png")
     
     primaryFarm = ResourceFarm("levelUp", 10, use_potion=False)
     action_queue = [

@@ -54,11 +54,15 @@ class Action:
         time.sleep(1)
         pyautogui.mouseUp(button="left", x=position[0], y=position[1])
 
-    def try_click(self, position, url):
+    def try_click(self, position, url, trial=trial_default, wait_time=wait_time_default):
         while not self.checkExist(url, 0.8):
             pyautogui.mouseDown(button="left", x=position[0], y=position[1])
             time.sleep(1)
             pyautogui.mouseUp(button="left", x=position[0], y=position[1])
+            trial-=1
+            if trial == 0:
+                break
+            time.sleep(wait_time)
 
     def wait_on(self):
         self.waitForImg("./botImg/waitingIcon.png", 5, 0.6)
