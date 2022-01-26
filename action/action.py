@@ -75,6 +75,7 @@ class Action:
             self.special_case_click_simplify()
 
     def checkExist(self, imgUrl, confidenceValue, trial = trial_default, wait_time = wait_time_default):
+        time.sleep(1)
         try:
             while trial > 0:
                 centerPoint = pyautogui.locateCenterOnScreen(imgUrl, confidence=confidenceValue)

@@ -10,15 +10,16 @@ from action.basement import HandleBasement
 from action.purchase import HandlePurchase
 from action.mission import HandleMission
 from action.battle.extermination import Extermination
+from action.battle.battle import Battle
+from action.battle.side_story_farm import SideStoryFarm
 
 if __name__ == '__main__':
     nine_hour_period = datetime.now()
     tw_hour_period = datetime.now()
     tf_hour_period = datetime.now()
 
-    # Action().try_click((1100, 1000), "./botImg/battle/levelUp.png")
-    
-    primaryFarm = ResourceFarm("levelUp", 10, use_potion=False)
+    primaryFarm = SideStoryFarm("jjj", 7, 50, use_potion=True)
+
     action_queue = [
         primaryFarm,
         HandleBasement(),
