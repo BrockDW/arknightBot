@@ -26,6 +26,8 @@ class HandlePurchase(Action):
         self.continue_purchase("./botImg/homePage/50_discount.png")
         self.continue_purchase("./botImg/homePage/99_discount.png")
 
+        self.click_screen()
+
     def continue_purchase(self, image_url):
         i = 0
         while (self.checkExist(image_url, 0.7) and i < 3):
