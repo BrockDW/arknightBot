@@ -9,6 +9,9 @@ class Battle(Action):
         self.times = times
         pass
 
+    def reset_time(self, value):
+        self.times = value
+
     def battleControl(self):
         while (self.times > 0):
             if self.checkExist("./botImg/homePage/battle.png", 0.8):

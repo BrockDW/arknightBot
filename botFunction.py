@@ -64,9 +64,10 @@ if __name__ == '__main__':
 
         if tw_hour_diff >= 10:
             tw_hour_period = now
+            primaryFarm.reset_time(50)
             action_queue.append(Extermination(1))
             action_queue.append(HandlePublicRecrute())
-            action_queue.append(ResourceFarm("levelUp", 10, use_potion=False))
+            action_queue.append(primaryFarm)
             action_queue.append(HandleMission())
             action_queue.append(HandleFriend())
             
