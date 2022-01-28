@@ -26,7 +26,7 @@ class HandlePublicRecrute(Action):
         while self.checkExist("./botImg/homePage/recrute_confirm.png", 0.8):
             self.clickOnImg("./botImg/homePage/recrute_confirm.png", 0.8)
             self.clickOnImg("./botImg/draw_confirm.png", 0.8)
-            pyautogui.click(50, 50)
+            self.click_screen()
             time.sleep(self.sleep_radio*2)
 
         tag_path = "./botImg/recrute_tag"
