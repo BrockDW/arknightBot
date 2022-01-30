@@ -18,7 +18,8 @@ if __name__ == '__main__':
     tw_hour_period = datetime.now()
     tf_hour_period = datetime.now()
 
-    HandlePurchase().perform_action()
+    # HandlePurchase().perform_action()
+    HandlePublicRecrute().perform_action()
 
     primaryFarm = SideStoryFarm("jjj", 7, 50, use_potion=True)
 

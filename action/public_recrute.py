@@ -4,6 +4,7 @@ import pyautogui
 import time
 from os import listdir
 from os.path import isfile, join
+import ast
 
 from meta_data import \
     log_format, \
@@ -35,10 +36,23 @@ class HandlePublicRecrute(Action):
 
         while self.checkExist("./botImg/homePage/begin_new_recrute.png", 0.8):
             cur_tag_list = []
+
             self.clickOnImg("./botImg/homePage/begin_new_recrute.png", 0.8)
             for file in onlyfiles:
-                if self.checkExist(tag_path + "/"+file, 0.9, 2, 2):
+                if self.checkExist(tag_path + "/"+file, 0.9):
                     cur_tag_list.append(file.split(".")[0])
+
+            with open('./tag_frequency.txt', "r+") as tags:
+                data = tags.read()
+                tags.truncate(0)
+                tags.seek(0)
+                tag_dict = ast.literal_eval(data)
+                for cur_tag in cur_tag_list:
+                    try:
+                        tag_dict[cur_tag] = tag_dict[cur_tag] + 1
+                    except:
+                        tag_dict[cur_tag] = 1
+                tags.write(str(tag_dict))
 
             print(log_format.format("available tags", str(cur_tag_list)))
 

@@ -1,0 +1,1 @@
+{'jwgy': 1, 'qg': 2, 'sc': 1, 'ylgy': 2, 'zl': 2, 'fh': 2, 'jzw': 2, 'ssgy': 1, 'xs': 1, 'zzgy': 1}

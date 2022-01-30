@@ -120,14 +120,15 @@ class Action:
         time.sleep(4)
         self.click_on_position((1900, 10))
 
-    def goback(self):
-        # time.sleep(30)
+    def goback(self, trial = trial_default, wait_time = wait_time_default):
         print(log_format.format("going back", "to the main screen"))
-        self.clickOnImg("./botImg/quickJump.png", 0.8)
-        self.clickOnImg("./botImg/quickJumpHome.png", 0.8)
-        time.sleep(self.sleep_radio*6)
-        self.waitForImgAppear("./botImg/homePage/battle.png", 0.8)
-        self.click_screen()
+        while not self.checkExist("./botImg/homePage/battle.png", 0.8) and trial > 0:
+            self.clickOnImg("./botImg/quickJump.png", 0.8)
+            self.clickOnImg("./botImg/quickJumpHome.png", 0.8)
+            time.sleep(self.sleep_radio*6)
+            self.click_screen()
+            trial -= 1
+            time.sleep(wait_time)
 
         newDayStarted = False
 
