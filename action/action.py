@@ -50,15 +50,14 @@ class Action:
         print("*"*starCount)
 
     def click_on_position(self, position):
+        pyautogui.moveTo(x=position[0], y=position[1], duration=1)
         pyautogui.mouseDown(button="left", x=position[0], y=position[1])
         time.sleep(1)
         pyautogui.mouseUp(button="left", x=position[0], y=position[1])
 
     def try_click(self, position, url, trial=trial_default, wait_time=wait_time_default):
         while not self.checkExist(url, 0.8):
-            pyautogui.mouseDown(button="left", x=position[0], y=position[1])
-            time.sleep(1)
-            pyautogui.mouseUp(button="left", x=position[0], y=position[1])
+            self.click_on_position(position)
             trial-=1
             if trial == 0:
                 break
