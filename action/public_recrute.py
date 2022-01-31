@@ -39,7 +39,7 @@ class HandlePublicRecrute(Action):
 
             self.clickOnImg("./botImg/homePage/begin_new_recrute.png", 0.8)
             for file in onlyfiles:
-                if self.checkExist(tag_path + "/"+file, 0.9):
+                if self.checkExist(tag_path + "/"+file, 0.9, 2, 2):
                     cur_tag_list.append(file.split(".")[0])
 
             with open('./tag_frequency.txt', "r+") as tags:
