@@ -50,7 +50,7 @@ class Action:
         print("*"*starCount)
 
     def click_on_position(self, position):
-        pyautogui.moveTo(x=position[0], y=position[1], duration=1)
+        # pyautogui.moveTo(x=position[0], y=position[1], duration=1)
         pyautogui.mouseDown(button="left", x=position[0], y=position[1])
         time.sleep(1)
         pyautogui.mouseUp(button="left", x=position[0], y=position[1])
