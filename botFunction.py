@@ -21,7 +21,7 @@ if __name__ == '__main__':
     # HandlePurchase().perform_action()
     HandlePublicRecrute().perform_action()
 
-    primaryFarm = SideStoryFarm("jjj", 7, 50, use_potion=True)
+    primaryFarm = SideStoryFarm("jjj", 7, 50, use_potion=False)
 
     action_queue = [
         primaryFarm,
