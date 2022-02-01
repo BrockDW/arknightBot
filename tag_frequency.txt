@@ -1,1 +1,1 @@
-{'jwgy': 1, 'qg': 2, 'sc': 1, 'ylgy': 2, 'zl': 2, 'fh': 2, 'jzw': 2, 'ssgy': 1, 'xs': 1, 'zzgy': 1}
+{'jwgy': 4, 'qg': 6, 'sc': 1, 'ylgy': 4, 'zl': 4, 'fh': 3, 'jzw': 5, 'ssgy': 6, 'xs': 3, 'zzgy': 3, 'jjgy': 6, 'fyhf': 3, 'xfgy': 2, 'fzgy': 3, 'ycw': 1, 'shuchu': 1}
