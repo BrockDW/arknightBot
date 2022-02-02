@@ -68,24 +68,30 @@ class Action:
         self.waitForImg("./botImg/battle/endGameCutPic.png", 5, 0.8)
         self.waitForImg("./botImg/baseIntro.png", 5, 0.8)
         self.waitForImg("./botImg/battle/autoPlayIcon.png", 5, 0.8)
+        # print(self.check_update)
         if self.check_update:
             self.check_update = False
             self.check_battle_failed()
             self.special_case_click_simplify()
 
-    def checkExist(self, imgUrl, confidenceValue, trial = trial_default, wait_time = wait_time_default):
-        time.sleep(1)
+    def checkExist(self,
+                   imgUrl,
+                   confidenceValue,
+                   trial = trial_default,
+                   wait_time = wait_time_default,
+                   check_appear = True):
+        self.waitForImgAppear(imgUrl, confidenceValue, trial, wait_time)
+        if check_appear:
+            self.special_case_click_simplify()
         try:
-            while trial > 0:
-                centerPoint = pyautogui.locateCenterOnScreen(imgUrl, confidence=confidenceValue)
-                if (centerPoint):
-                    print(log_format.format(imgUrl, "exist on screen"))
-                    return True
-                else:
-                    print(log_format.format(imgUrl, "did not exist on screen"))
-                    trial -= 1
-                time.sleep(wait_time)
-            return False
+            centerPoint = pyautogui.locateCenterOnScreen(imgUrl, confidence=confidenceValue)
+            if (centerPoint):
+                print(log_format.format(imgUrl, "exist on screen"))
+                return True
+            else:
+                print(log_format.format(imgUrl, "did not exist on screen"))
+                # trial -= 1
+                return False
         except OSError:
             print(log_format.format(imgUrl, "image file did not exists"))
             return False
@@ -100,7 +106,7 @@ class Action:
 
     def waitForImgAppear(self, imgUrl, curConf, trial=trial_default, waitTime = wait_time_default):
         # counter = 0
-        # self.wait_on()
+
         while (trial > 0):
             if pyautogui.locateCenterOnScreen(imgUrl, confidence=curConf) == None:
                 print(log_format.format(imgUrl, "time out, stop waiting"))
@@ -122,7 +128,7 @@ class Action:
 
     def goback(self, trial = trial_default, wait_time = wait_time_default):
         print(log_format.format("going back", "to the main screen"))
-        while not self.checkExist("./botImg/homePage/battle.png", 0.8) and trial > 0:
+        if not self.checkExist("./botImg/homePage/battle.png", 0.8):
             self.clickOnImg("./botImg/quickJump.png", 0.8)
             self.clickOnImg("./botImg/quickJumpHome.png", 0.8)
             time.sleep(self.sleep_radio*6)
@@ -169,17 +175,18 @@ class Action:
             return False
 
     def special_case_click_simplify(self):
-        if self.checkExist("./botImg/closePanel.png", 0.8):
+        # print("here")
+        if self.checkExist("./botImg/closePanel.png", 0.8, trial=2, wait_time=1, check_appear=False):
             centerPoint = pyautogui.locateCenterOnScreen("./botImg/closePanel.png", confidence=0.8)
             if (centerPoint):
                 self.click_on_position(centerPoint)
                 print(log_format.format("./botImg/closePanel.png", "image clicked"))
-                time.sleep((self.sleep_radio + 2) * 20)
+                time.sleep((self.sleep_radio + 1) * 6)
                 go_back_result = self.goback()
                 self.instruction()
                 self.check_update=True
 
-        if self.checkExist("./botImg/connection_lost_confirm.png", 0.8):
+        if self.checkExist("./botImg/connection_lost_confirm.png", 0.8, trial=2, wait_time=1, check_appear=False):
             centerPoint = pyautogui.locateCenterOnScreen("./botImg/connection_lost_confirm.png", confidence=0.8)
             if (centerPoint):
                 self.click_on_position(centerPoint)
