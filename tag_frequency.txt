@@ -1,1 +1,1 @@
-{'jwgy': 4, 'qg': 7, 'sc': 1, 'ylgy': 7, 'zl': 5, 'fh': 5, 'jzw': 6, 'ssgy': 6, 'xs': 5, 'zzgy': 5, 'jjgy': 7, 'fyhf': 3, 'xfgy': 4, 'fzgy': 5, 'ycw': 2, 'shuchu': 1, 'js': 1, 'ksfh': 1}
+{'jwgy': 7, 'qg': 12, 'sc': 1, 'ylgy': 10, 'zl': 6, 'fh': 6, 'jzw': 9, 'ssgy': 6, 'xs': 10, 'zzgy': 10, 'jjgy': 9, 'fyhf': 6, 'xfgy': 9, 'fzgy': 9, 'ycw': 5, 'shuchu': 3, 'js': 1, 'ksfh': 1}
