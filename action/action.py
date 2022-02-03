@@ -50,7 +50,7 @@ class Action:
         print("*"*starCount)
 
     def click_on_position(self, position):
-        # pyautogui.moveTo(x=position[0], y=position[1], duration=1)
+        pyautogui.moveTo(x=position[0], y=position[1], duration=1)
         pyautogui.mouseDown(button="left", x=position[0], y=position[1])
         time.sleep(1)
         pyautogui.mouseUp(button="left", x=position[0], y=position[1])
@@ -135,28 +135,6 @@ class Action:
             self.click_screen()
             trial -= 1
             time.sleep(wait_time)
-
-        # newDayStarted = False
-
-        # if (self.checkExist("./botImg/homePage/daily_message.png", 0.8) or self.checkExist("./botImg/homePage/daily_message_off_select.png", 0.8)):
-        #     print(log_format.format("a new day has started", "performing basic operation"))
-        #     self.clickOnImg("./botImg/closePanel.png", 0.8)
-        #     newDayStarted = True
-        #     if self.checkExist("./botImg/homePage/daily_reword.png", 0.8):
-        #         print(log_format.format("no new message today", "reword collected"))
-        #         self.clickOnImg("./botImg/closePanel.png", 0.8)
-        #         newDayStarted = True
-        #
-        #     if self.checkExist("./botImg/homePage/daily_reword_auto_trigger.png", 0.8):
-        #         print(log_format.format("no new message today", "reword collected"))
-        #         self.click_screen()
-        #         self.clickOnImg("./botImg/closePanel.png", 0.8)
-        #         newDayStarted = True
-        #     if newDayStarted:
-        #         time.sleep(10)
-        #     return newDayStarted
-
-
 
     def special_case_click(self, case_img, confirm_img):
         if self.checkExist(case_img, 0.8):
