@@ -22,7 +22,7 @@ if __name__ == '__main__':
     # Battle(8, use_potion=True).battleControl()
     # HandlePublicRecrute().perform_action()
 
-    primaryFarm = SideStoryFarm("jjj", 7, 50, use_potion=False)
+    primaryFarm = SideStoryFarm("jjj", 6, 50, use_potion=False)
 
     action_queue = [
         primaryFarm,
