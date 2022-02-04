@@ -16,9 +16,12 @@ class Action:
         self.update_failed_action_list = update_failed_action_list
         self.sleep_radio = 0
         self.check_update = False
-        self.instruction = None
+        self.instruction = self.do_nothing
         self.confidenceValue = confidenceValue
         pass
+
+    def do_nothing(self):
+        print("do nothing")
 
     def perform_action(self, instruction):
         self.instruction = instruction
