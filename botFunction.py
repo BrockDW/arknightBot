@@ -18,11 +18,7 @@ if __name__ == '__main__':
     tw_hour_period = datetime.now()
     tf_hour_period = datetime.now()
 
-    # HandlePurchase().perform_action()
-    # Battle(8, use_potion=True).battleControl()
-    # HandlePublicRecrute().perform_action()
-
-    primaryFarm = SideStoryFarm("jjj", 6, 50, use_potion=False)
+    primaryFarm = ResourceFarm("levelUp", 50)
 
     action_queue = [
         primaryFarm,
