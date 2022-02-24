@@ -18,7 +18,7 @@ if __name__ == '__main__':
     tw_hour_period = datetime.now()
     tf_hour_period = datetime.now()
 
-    primaryFarm = ResourceFarm("levelUp", 50)
+    primaryFarm = ResourceFarm("coin", 50)
 
     action_queue = [
         primaryFarm,
