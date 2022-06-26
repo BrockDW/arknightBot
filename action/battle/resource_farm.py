@@ -14,16 +14,23 @@ class ResourceFarm(Battle):
         oktofarm = True
         # self.goback()
         self.clickOnImg("./botImg/homePage/battle.png", 0.8)
-        # self.clickOnImg("./botImg/battle/resourceGain.png", 0.9)
-        self.clickOnImg("./botImg/battle/resourceGainSpecial.png", 0.9)
+        self.clickOnImg("./botImg/battle/resourceGain.png", 0.9)
+        # self.clickOnImg("./botImg/battle/resourceGainSpecial.png", 0.9)
         if (self.battleType == "levelUp"):
             self.clickOnImg("./botImg/battle/levelUp.png", 0.8)
             time.sleep(self.sleep_radio*2)
-            self.clickOnImg("./botImg/battle/LS-5.png", 0.8)
+            self.clickOnImg("./botImg/battle/LS-6.png", 0.8)
+
         elif (self.battleType == "coin"):
-            self.clickOnImg("./botImg/battle/coin.png", 0.8)
-            time.sleep(self.sleep_radio*2)
-            self.clickOnImg("./botImg/battle/CE-5.png", 0.8)
+            if self.seek_image("./botImg/battle/coin.png", 0.8):
+                self.clickOnImg("./botImg/battle/coin.png", 0.8)
+                time.sleep(self.sleep_radio * 2)
+                self.clickOnImg("./botImg/battle/CE-6.png", 0.8)
+            else:
+                self.clickOnImg("./botImg/battle/levelUp.png", 0.8)
+                time.sleep(self.sleep_radio * 2)
+                self.clickOnImg("./botImg/battle/LS-6.png", 0.8)
+
         elif (self.battleType == "baseBuildRecource"):
             self.clickOnImg("./botImg/battle/baseBuildRecource.png", 0.8)
             time.sleep(self.sleep_radio*2)
