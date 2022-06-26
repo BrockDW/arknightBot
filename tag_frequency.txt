@@ -1,5 +1,1 @@
-<<<<<<< HEAD
 {'jwgy': 72, 'qg': 78, 'sc': 35, 'ylgy': 79, 'zl': 32, 'fh': 44, 'jzw': 85, 'ssgy': 60, 'xs': 95, 'zzgy': 63, 'jjgy': 57, 'fyhf': 81, 'xfgy': 80, 'fzgy': 70, 'ycw': 78, 'shuchu': 28, 'js': 16, 'ksfh': 6, 'xr': 2, 'zy': 6, 'tzgy': 29, 'wy': 10, 'jx': 1}
-=======
-{'jwgy': 57, 'qg': 61, 'sc': 29, 'ylgy': 63, 'zl': 23, 'fh': 32, 'jzw': 67, 'ssgy': 47, 'xs': 77, 'zzgy': 48, 'jjgy': 49, 'fyhf': 45, 'xfgy': 70, 'fzgy': 59, 'ycw': 44, 'shuchu': 26, 'js': 11, 'ksfh': 6, 'xr': 2, 'zy': 3, 'tzgy': 7, 'wy': 7, 'jx': 1}
->>>>>>> 14e92d2dbbab5f2fff7254bf98973550ea36f5fd

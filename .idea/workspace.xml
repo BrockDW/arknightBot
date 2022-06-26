@@ -5,16 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="436f2be2-8b72-466f-ae36-d4e8dd207ac8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/arknightsbot.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/arknightsbot.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/csv-plugin.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/action/battle/resource_farm.py" beforeDir="false" afterPath="$PROJECT_DIR$/action/battle/resource_farm.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/custom_farm.py" beforeDir="false" afterPath="$PROJECT_DIR$/custom_farm.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/meta_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/meta_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tag_frequency.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tag_frequency.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -43,7 +34,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Downloads/drive-download-20220306T233803Z-001" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -157,9 +148,10 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="2659" y="270" key="FileChooserDialogImpl" timestamp="1656136054071">
-      <screen x="1920" y="0" width="1920" height="1032" />
+    <state x="739" y="270" key="FileChooserDialogImpl" timestamp="1656282934216">
+      <screen x="0" y="0" width="1920" height="1032" />
     </state>
+    <state x="739" y="270" key="FileChooserDialogImpl/-1920.0.1536.826/0.0.1920.1032/1920.0.1920.1032/0.-1080.1536.816@0.0.1920.1032" timestamp="1656282934216" />
     <state x="2659" y="270" key="FileChooserDialogImpl/-1920.0.1536.826/1920.0.1920.1032/0.-1080.1536.816/0.0.1920.1032@1920.0.1920.1032" timestamp="1656136054071" />
     <state width="1899" height="315" key="GridCell.Tab.0.bottom" timestamp="1656173060670">
       <screen x="1920" y="0" width="1920" height="1032" />
