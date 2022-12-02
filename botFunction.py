@@ -1,4 +1,7 @@
 import time
+
+from action.side_story.fxgj.fxgj_resource_farm import FXGJResourceFarm
+
 log_format = "{:>40} -- {:>10}"
 from datetime import datetime
 
@@ -18,7 +21,10 @@ if __name__ == '__main__':
     tw_hour_period = datetime.now()
     tf_hour_period = datetime.now()
 
-    primaryFarm = ResourceFarm("levelUp", 50)
+    # primaryFarm = ResourceFarm("levelUp", 50)
+    primaryFarm = FXGJResourceFarm("BI-7", 10, use_potion=True)
+
+    Extermination(1).perform_action()
 
     action_queue = [
         primaryFarm,

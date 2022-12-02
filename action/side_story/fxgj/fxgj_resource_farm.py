@@ -12,6 +12,7 @@ class FXGJResourceFarm(Battle):
     def local_action(self):
         self.clickOnImg("./botImg/side_story/fxgj/home_page_jump.png", self.confidenceValue)
         self.clickOnImg("./botImg/side_story/fxgj/entrance.png", self.confidenceValue)
+        self.seek_image("./botImg/side_story/fxgj/"+ self.episod + ".png", self.confidenceValue+0.1)
         self.clickOnImg("./botImg/side_story/fxgj/"+ self.episod + ".png", self.confidenceValue+0.1)
 
         self.battleControl()

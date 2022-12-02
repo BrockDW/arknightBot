@@ -21,5 +21,5 @@ double_five_star = {
 
 trible_five_star = ["shuchu", "ycw", "js"]
 
-trial_default = 5
-wait_time_default = 5
+trial_default = 0
+wait_time_default = 1
